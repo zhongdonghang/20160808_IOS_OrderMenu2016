@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+/*商品模型*/
 class ProductSimpleViewModel {
     var OID = ""
     var CName = ""
