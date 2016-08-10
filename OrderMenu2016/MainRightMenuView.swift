@@ -10,14 +10,22 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+//点击商品显示详情的回调委托
 protocol ProductClicked {
     func ProductSelected(product:ProductSimpleViewModel)
+}
+
+//当前购物车不存在的回调委托（要新开单）
+protocol CartNotExist
+{
+    func newCart()
 }
 
 class MainRightMenuView: UIView,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
     var myView:UICollectionView!
-    var delegate:ProductClicked!
+    var delegateProductSelected:ProductClicked!
+    var delegateNewCart:CartNotExist!
     var tbData:[ProductSimpleViewModel] = []
     var menuId = "0"
     
@@ -168,7 +176,7 @@ class MainRightMenuView: UIView,UICollectionViewDelegate,UICollectionViewDataSou
         }
         
         let txtYiDian:UITextField = UITextField()
-        txtYiDian.text = "1"
+        txtYiDian.text = "0"
         txtYiDian.layer.cornerRadius = 5
         txtYiDian.textAlignment = NSTextAlignment.Center
         txtYiDian.layer.borderWidth = 1
@@ -228,7 +236,7 @@ class MainRightMenuView: UIView,UICollectionViewDelegate,UICollectionViewDataSou
     
     func btnProductClick(sender:UIButton) {
         
-        self.delegate?.ProductSelected(tbData[sender.tag])
+        self.delegateProductSelected?.ProductSelected(tbData[sender.tag])
     }
     
     func btnJianClicked(sender:UIButton) {
@@ -237,6 +245,13 @@ class MainRightMenuView: UIView,UICollectionViewDelegate,UICollectionViewDataSou
     
     func btnJiaClicked(sender:UIButton) {
         print("+\(sender.tag)")
+        if(CartTools.checkCartIsExist())
+        {
+            
+        }else //购物车不存在
+        {
+            delegateNewCart.newCart()
+        }
     }
     
     /*

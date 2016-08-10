@@ -8,32 +8,17 @@
 
 import Foundation
 
-//class SerialNumber {
-//    
-//    class func getNumber()->String
-//    {
-//        let sysDefaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-//        var n:Int = 0
-//        if sysDefaults.objectForKey("CartId") == nil
-//        {
-//            sysDefaults.setInteger(1001, forKey: "CartId")
-//            n=1001
-//        }
-//        else
-//        {
-//            n = sysDefaults.integerForKey("CartId")
-//            n += 1
-//        }
-//        return String(n)
-//    }
-//    
-//}
-
+//购物车模型
 class CartModel:NSObject,NSCoding {
+    //购物车号(订单号)
     var CartId:String!
+    //座位号
     var SeatNo:String!
+    //人数
     var PersonNum:Int!
+    //员工号（服务员）
     var EmpNo:String!
+    //购物车清单列表
     var List:[CartItemModel]!
     
     func encodeWithCoder(aCoder: NSCoder){
@@ -44,7 +29,6 @@ class CartModel:NSObject,NSCoding {
         aCoder.encodeObject(self.List, forKey: "List")
         
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
@@ -67,9 +51,9 @@ class CartModel:NSObject,NSCoding {
     }
     
 
-    
+    //当前购物车总金额
     var TotalMoney:Double
-        {
+    {
         get
         {
             var result = 0.0
@@ -81,11 +65,13 @@ class CartModel:NSObject,NSCoding {
         }
     }
     
+    //清空购物车
     func clearCart()
     {
         List.removeAll(keepCapacity: true)
     }
     
+    //移除某项商品
     func removeItem(RemoveProduct p:ProductSimpleViewModel)->Bool
     {
         var result:Bool = false
@@ -104,6 +90,7 @@ class CartModel:NSObject,NSCoding {
         return result
     }
     
+    //某项商品数量减1
     func removeProductOne(RemoveProduct p:ProductSimpleViewModel)->Bool
     {
         var result:Bool = false
@@ -131,6 +118,7 @@ class CartModel:NSObject,NSCoding {
         return result
     }
     
+    //增加某个商品（如果没有则增加，如果有则加1）
     func addProduct(AddProduct p:ProductSimpleViewModel)->Bool
     {
         var result:Bool = false

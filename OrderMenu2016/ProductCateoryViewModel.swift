@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//商品类别模型
 class ProductCateoryViewModel {
     
     var OID = ""

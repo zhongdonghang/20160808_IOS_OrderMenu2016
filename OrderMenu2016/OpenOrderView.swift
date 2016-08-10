@@ -7,20 +7,87 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 //选人，选桌子，开单
 class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
-     var myListView:UICollectionView!
+        var myListView:UICollectionView!
+    
+        var seatAr:[SeatModel] = []
+        var empAr:[EmpModel] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = AppDetailsProductBgColor
-        setBaseView()
-        setListView()
+        
+        //加载台位和服务员信息
+        let url = AppServerURL+"GetSeatANDMember"
+        let parameters = [
+            "_orgid": LoginUserTools.getCurrentOrgId()
+        ]
+        let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
+        hud.label.text = "正在获取台位和服务员信息..."
+        Alamofire.request(.GET, url,parameters: parameters).responseJSON { (response) in
+            switch response.result {
+            case.Success(let data):
+                let json = JSON(data)
+                if(json["ResultCode"] == "200")//请求成功
+                {
+                    self.seatAr.removeAll()
+                    self.empAr.removeAll()
+                    for obj in json["Data1"]["Seats"]
+                    {
+                        let vm:SeatModel = SeatModel()
+                         vm.OID = "\(obj.1["OID"])"
+                         vm.ParentID = "\(obj.1["ParentID"])"
+                         vm.SeatNo = "\(obj.1["SeatNo"])"
+                         vm.SaatCategory = "\(obj.1["SaatCategory"])"
+                         vm.PersonNum = "\(obj.1["PersonNum"])"
+                         vm.OrgID = "\(obj.1["OrgID"])"
+                         vm.Desc = "\(obj.1["Desc"])"
+                         vm.Status = "\(obj.1["Status"])"
+                         self.seatAr.append(vm)
+                    }
+                    
+                    for objEmp in json["Data1"]["Members"]
+                    {
+                        let em:EmpModel = EmpModel()
+                         em.OID = "\(objEmp.1["Status"])"
+                         em.Cname = "\(objEmp.1["Cname"])"
+                         em.Gender = "\(objEmp.1["Gender"])"
+                         em.Introduction = "\(objEmp.1["Introduction"])"
+                         em.OrgID = "\(objEmp.1["OrgID"])"
+                         em.DeletionStateCode = "\(objEmp.1["DeletionStateCode"])"
+                         em.Enabled = "\(objEmp.1["Enabled"])"
+                         em.SortCode = "\(objEmp.1["SortCode"])"
+                         em.Description = "\(objEmp.1["Description"])"
+                         em.CreateOn = "\(objEmp.1["CreateOn"])"
+                         em.CreateUserId = "\(objEmp.1["CreateUserId"])"
+                         em.CreateBy = "\(objEmp.1["CreateBy"])"
+                         em.ModifiedOn = "\(objEmp.1["ModifiedOn"])"
+                         em.ModifiedUserId = "\(objEmp.1["ModifiedUserId"])"
+                         em.ModifiedBy = "\(objEmp.1["ModifiedBy"])"
+                         self.empAr.append(em)
+                    }
+                    self.setBaseView()
+                    self.setListView()
+
+                }else
+                {
+                    let text = "\(json["Msg"])"
+                    ViewAlertTextCommon.ShowSimpleText(text, view: self)
+                }
+            case.Failure(let error):
+                let alert = UIAlertView(title: "错误消息", message: "异常:\(error)", delegate: self, cancelButtonTitle: "好")
+                alert.show()
+            }
+            hud.removeFromSuperview()
+        }//加载台位和服务员信息结束
+        
+
     }
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -57,6 +124,43 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             make.left.equalTo(35)
             make.height.equalTo(20)
         }
+        
+        let lbOrderNo:UILabel = UILabel()
+        lbOrderNo.textColor = AppLineBgColor
+        lbOrderNo.text = ""
+        self.addSubview(lbOrderNo)
+        lbOrderNo.snp_makeConstraints { (make) in
+            make.top.equalTo(40)
+            make.left.equalTo(220)
+            make.height.equalTo(20)
+        }
+        
+        //加载新订单号
+        let url = AppServerURL+"GetOrderNo"
+        let parameters = [
+            "_orgid": LoginUserTools.getCurrentOrgId()
+        ]
+        let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
+        hud.label.text = "正在获取订单号..."
+        Alamofire.request(.GET, url,parameters: parameters).responseJSON { (response) in
+            switch response.result {
+            case.Success(let data):
+                let json = JSON(data)
+                if(json["ResultCode"] == "200")//请求成功
+                {
+                   lbOrderNo.text = "订单号:\(json["strNo"])"
+                }else
+                {
+                    let text = "\(json["Msg"])"
+                    ViewAlertTextCommon.ShowSimpleText(text, view: self)
+                }
+            case.Failure(let error):
+                let alert = UIAlertView(title: "错误消息", message: "异常:\(error)", delegate: self, cancelButtonTitle: "好")
+                alert.show()
+            }
+            hud.removeFromSuperview()
+        }//加载新订单号结束
+
         
         let lineView2 = UIView()
         lineView2.backgroundColor = AppLineBgColor
@@ -190,7 +294,7 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 10
+        return self.seatAr.count
     }
     
     
@@ -222,7 +326,7 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
         
         let lbTableNo = UILabel()
         lbTableNo.textColor = UIColor.whiteColor()
-        lbTableNo.text = "A001"
+        lbTableNo.text = self.seatAr[indexPath.row].SeatNo
         tableNoView.addSubview(lbTableNo)
         lbTableNo.snp_makeConstraints { (make) in
             make.center.equalTo(tableNoView)

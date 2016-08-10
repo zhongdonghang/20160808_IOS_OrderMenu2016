@@ -17,7 +17,7 @@ let AppDetailsProductBgColor = UIColor(red: 247/255, green: 247/255, blue: 247/2
 let AppProductPriceTextColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)
 let AppProductPriceValueColor = UIColor(red: 230/255, green: 51/255, blue: 26/255, alpha: 1)
 
-class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
+class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNotExist {
     
     var objMainRightMenuView:MainRightMenuView!
     
@@ -62,8 +62,10 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
             objMainRightMenuView.removeFromSuperview()
         }
         objMainRightMenuView = MainRightMenuView(frame:  CGRectMake(0, 0, self.view.bounds.width-180, self.view.bounds.height-30),menuid: menuId)
-        objMainRightMenuView.delegate = self
-
+        
+        objMainRightMenuView.delegateProductSelected = self
+        objMainRightMenuView.delegateNewCart = self
+        
         listViewContainer.addSubview(objMainRightMenuView)
         listViewContainer.animation = "zoomIn"
         listViewContainer.backgroundColor = UIColor.clearColor()
@@ -86,6 +88,8 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
         setBaseView()
         setLeftMenuTable()
         setButtons()
+        
+       
     }
     
     func detailsViewHide() {
@@ -221,41 +225,15 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
         openOrderViewViewContainer.removeFromSuperview()
     }
     
+    //点击开单按钮
     func btnRenShuClicked(sender:UIButton) {
-        view.addSubview(openOrderViewViewContainer)
-        
-        let objOpenOrderView:OpenOrderView = OpenOrderView(frame: CGRectMake(151, 0, 873, 768) )
-       // objOpenOrderView.delegate = self
-        openOrderViewViewContainer.addSubview(objOpenOrderView)
-        let btnCloseOpenOrderViewContainer = UIButton()
-        btnCloseOpenOrderViewContainer.backgroundColor = UIColor.clearColor()
-        openOrderViewViewContainer.addSubview(btnCloseOpenOrderViewContainer)
-        btnCloseOpenOrderViewContainer.addTarget(self, action: #selector(MainViewController.btnCloseOpenOrderViewContainerClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        btnCloseOpenOrderViewContainer.snp_makeConstraints { (make) in
-            make.width.equalTo(150)
-            make.top.equalTo(0)
-            make.bottom.equalTo(0)
-            make.left.equalTo(0)
-        }
-        
-        openOrderViewViewContainer.animation = "squeezeLeft"
-        openOrderViewViewContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-        openOrderViewViewContainer.curve = "easeIn"
-        openOrderViewViewContainer.duration = 0.4
-        openOrderViewViewContainer.snp_makeConstraints { (make) in
-            make.right.equalTo(0)
-            make.top.equalTo(0)
-            make.bottom.equalTo(0)
-            make.left.equalTo(0)
-        }
-        openOrderViewViewContainer.animate()
+        showNewCarView()
     }
     
     //打开购物车
     func  btnCartClicked(sender:UIButton) {
        
         view.addSubview(CartViewContainer)
-        
         let objCartView:CartView = CartView(frame: CGRectMake(400, 0, 624, 768))
         // objOpenOrderView.delegate = self
         CartViewContainer.addSubview(objCartView)
@@ -271,7 +249,6 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
             make.left.equalTo(0)
         }
 
-        
         CartViewContainer.animation = "squeezeLeft"
         CartViewContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
         CartViewContainer.curve = "easeIn"
@@ -283,7 +260,6 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
             make.left.equalTo(0)
         }
         CartViewContainer.animate()
-
     }
     
     func btnOrdersClicked(sender:UIButton){
@@ -326,6 +302,41 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked {
         OrderListViewContainer.removeFromSuperview()
     }
     
+    //新开单方法（协议方法）
+    func newCart()
+    {
+        showNewCarView()
+    }
+    
+    //显示开单视图（人数/服务员/台位）
+    func  showNewCarView() {
+        view.addSubview(openOrderViewViewContainer)
+        let objOpenOrderView:OpenOrderView = OpenOrderView(frame: CGRectMake(151, 0, 873, 768) )
+        // objOpenOrderView.delegate = self
+        openOrderViewViewContainer.addSubview(objOpenOrderView)
+        let btnCloseOpenOrderViewContainer = UIButton()
+        btnCloseOpenOrderViewContainer.backgroundColor = UIColor.clearColor()
+        openOrderViewViewContainer.addSubview(btnCloseOpenOrderViewContainer)
+        btnCloseOpenOrderViewContainer.addTarget(self, action: #selector(MainViewController.btnCloseOpenOrderViewContainerClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btnCloseOpenOrderViewContainer.snp_makeConstraints { (make) in
+            make.width.equalTo(150)
+            make.top.equalTo(0)
+            make.bottom.equalTo(0)
+            make.left.equalTo(0)
+        }
+        
+        openOrderViewViewContainer.animation = "squeezeLeft"
+        openOrderViewViewContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        openOrderViewViewContainer.curve = "easeIn"
+        openOrderViewViewContainer.duration = 0.4
+        openOrderViewViewContainer.snp_makeConstraints { (make) in
+            make.right.equalTo(0)
+            make.top.equalTo(0)
+            make.bottom.equalTo(0)
+            make.left.equalTo(0)
+        }
+        openOrderViewViewContainer.animate()
+    }
 
     /*
     // MARK: - Navigation

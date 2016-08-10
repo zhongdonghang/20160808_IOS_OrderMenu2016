@@ -8,6 +8,7 @@
 
 import Foundation
 
+//购物车项模型
 class CartItemModel:NSObject,NSCoding {
     
     func encodeWithCoder(aCoder: NSCoder){
@@ -15,8 +16,7 @@ class CartItemModel:NSObject,NSCoding {
         aCoder.encodeObject(self.Item, forKey: "Item")
         aCoder.encodeObject(self.IsSubmit, forKey: "IsSubmit")
     }
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init()
         Count = aDecoder.decodeObjectForKey("Count") as! Double
