@@ -13,12 +13,16 @@ import SwiftyJSON
 //选人，选桌子，开单
 class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
+        let txtRenShu:UITextField = UITextField()
+        let txtZuoWei:UITextField = UITextField()
+        let txtFuWuYuan:UITextField = UITextField()
+    
         var myListView:UICollectionView!
     
         var seatAr:[SeatModel] = []
         var empAr:[EmpModel] = []
     
-    override init(frame: CGRect) {
+        override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = AppDetailsProductBgColor
         
@@ -205,8 +209,8 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             make.top.equalTo(80)
         }
         
-        let txtRenShu:UITextField = UITextField()
-        txtRenShu.text = "5"
+        
+        txtRenShu.placeholder="0"
         txtRenShu.textColor = AppLineBgColor
         txtRenShu.layer.cornerRadius = 5
         txtRenShu.keyboardType = UIKeyboardType.PhonePad
@@ -241,8 +245,8 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             make.top.equalTo(80)
         }
         
-        let txtZuoWei:UITextField = UITextField()
-        txtZuoWei.text = "501"
+
+        txtZuoWei.placeholder = "暂无"
         txtZuoWei.textColor = AppLineBgColor
         txtZuoWei.layer.cornerRadius = 5
         txtZuoWei.font = UIFont.boldSystemFontOfSize(20)
@@ -266,8 +270,8 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             make.top.equalTo(80)
         }
         
-        let txtFuWuYuan:UITextField = UITextField()
-        txtFuWuYuan.text = "店小二"
+        
+        txtFuWuYuan.placeholder = "暂无"
         txtFuWuYuan.textColor = AppLineBgColor
         txtFuWuYuan.layer.cornerRadius = 5
         txtFuWuYuan.font = UIFont.boldSystemFontOfSize(20)
@@ -335,7 +339,9 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
         
         let btnSelectSeat = UIButton()
         btnSelectSeat.setBackgroundImage(UIImage(named: "openorder_004"), forState: UIControlState.Normal)
+        btnSelectSeat.tag = indexPath.row
         btnSelectSeat.setTitle("选座", forState: UIControlState.Normal)
+        btnSelectSeat.addTarget(self, action: #selector(OpenOrderView.btnSelectSeatClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.contentView.addSubview(btnSelectSeat)
         btnSelectSeat.snp_makeConstraints { (make) in
             make.right.equalTo(-2)
@@ -355,6 +361,12 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
     {
         return UIEdgeInsetsMake(10, 10, 10, 10)
+    }
+    
+    //选座按钮事件
+    func btnSelectSeatClicked(sender:UIButton) {
+        print(sender.tag)
+        self.txtZuoWei.text = self.seatAr[sender.tag].SeatNo
     }
 
     

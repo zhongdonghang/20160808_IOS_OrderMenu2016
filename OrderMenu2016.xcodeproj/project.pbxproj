@@ -48,6 +48,8 @@
 		CA4CFCA51D3E012D007F321A /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4CFC881D3E012D007F321A /* TransitionManager.swift */; };
 		CA4CFCA61D3E012D007F321A /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4CFC891D3E012D007F321A /* TransitionZoom.swift */; };
 		CA4CFCA71D3E012D007F321A /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4CFC8A1D3E012D007F321A /* UnwindSegue.swift */; };
+		CA5A2DD91D5AD5AF000D72AA /* SeatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5A2DD81D5AD5AF000D72AA /* SeatModel.swift */; };
+		CA5A2DF21D5AD5BA000D72AA /* EmpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5A2DF11D5AD5BA000D72AA /* EmpModel.swift */; };
 		CA5F25E11D473EAC0004C19B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5F25E01D473EAC0004C19B /* SettingView.swift */; };
 		CA5F25EA1D474A390004C19B /* Sys_Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5F25E91D474A390004C19B /* Sys_Constant.swift */; };
 		CA5F25F21D4762EE0004C19B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5F25F11D4762EE0004C19B /* MBProgressHUD.m */; };
@@ -56,6 +58,7 @@
 		CA5F260E1D4763BA0004C19B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5F26001D47637D0004C19B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CA5F26291D47643D0004C19B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5F261C1D4764330004C19B /* SwiftyJSON.framework */; };
 		CA5F262A1D47643E0004C19B /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5F261C1D4764330004C19B /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA7CD1A01D598205003BCAC0 /* CartTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7CD19F1D598205003BCAC0 /* CartTools.swift */; };
 		CA7D491A1D49B3B400A90780 /* CartItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D49191D49B3B400A90780 /* CartItemModel.swift */; };
 		CA7D49331D49B42E00A90780 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D49321D49B42E00A90780 /* CartModel.swift */; };
 		CA7D49351D49DA4700A90780 /* RegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D49341D49DA4700A90780 /* RegView.swift */; };
@@ -349,6 +352,8 @@
 		CA4CFC881D3E012D007F321A /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		CA4CFC891D3E012D007F321A /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
 		CA4CFC8A1D3E012D007F321A /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
+		CA5A2DD81D5AD5AF000D72AA /* SeatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatModel.swift; sourceTree = "<group>"; };
+		CA5A2DF11D5AD5BA000D72AA /* EmpModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpModel.swift; sourceTree = "<group>"; };
 		CA5F25E01D473EAC0004C19B /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		CA5F25E91D474A390004C19B /* Sys_Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sys_Constant.swift; sourceTree = "<group>"; };
 		CA5F25EF1D4762ED0004C19B /* OrderMenu2016-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderMenu2016-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -357,6 +362,7 @@
 		CA5F25F31D4763270004C19B /* ViewAlertTextCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAlertTextCommon.swift; sourceTree = "<group>"; };
 		CA5F25F51D47637D0004C19B /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		CA5F26111D4764330004C19B /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		CA7CD19F1D598205003BCAC0 /* CartTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartTools.swift; sourceTree = "<group>"; };
 		CA7D49191D49B3B400A90780 /* CartItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartItemModel.swift; sourceTree = "<group>"; };
 		CA7D49321D49B42E00A90780 /* CartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		CA7D49341D49DA4700A90780 /* RegView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegView.swift; sourceTree = "<group>"; };
@@ -523,6 +529,7 @@
 				CA5F25E91D474A390004C19B /* Sys_Constant.swift */,
 				CA5F25F31D4763270004C19B /* ViewAlertTextCommon.swift */,
 				CA8AFA341D585E27000E8C60 /* LoginUserTools.swift */,
+				CA7CD19F1D598205003BCAC0 /* CartTools.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -573,6 +580,8 @@
 				CA7D49191D49B3B400A90780 /* CartItemModel.swift */,
 				CA7D49321D49B42E00A90780 /* CartModel.swift */,
 				CA8AFA1B1D585A4F000E8C60 /* SimpleLoginUserModel.swift */,
+				CA5A2DD81D5AD5AF000D72AA /* SeatModel.swift */,
+				CA5A2DF11D5AD5BA000D72AA /* EmpModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -874,15 +883,18 @@
 				CA4CFCA01D3E012D007F321A /* SpringImageView.swift in Sources */,
 				CA4CFC8D1D3E012D007F321A /* AutoTextView.swift in Sources */,
 				CA4CFC961D3E012D007F321A /* ImageLoader.swift in Sources */,
+				CA5A2DF21D5AD5BA000D72AA /* EmpModel.swift in Sources */,
 				CA3506D71D48BC5500CBCF91 /* ProductCellView.swift in Sources */,
 				CA4CFC9B1D3E012D007F321A /* Misc.swift in Sources */,
 				CA4CFC8E1D3E012D007F321A /* BlurView.swift in Sources */,
 				CA4CFCA71D3E012D007F321A /* UnwindSegue.swift in Sources */,
 				CA5F25F21D4762EE0004C19B /* MBProgressHUD.m in Sources */,
+				CA5A2DD91D5AD5AF000D72AA /* SeatModel.swift in Sources */,
 				CA5F25F41D4763270004C19B /* ViewAlertTextCommon.swift in Sources */,
 				CA4CFC991D3E012D007F321A /* LoadingView.swift in Sources */,
 				CA4CFCA21D3E012D007F321A /* SpringTextField.swift in Sources */,
 				CA4CFC9D1D3E012D007F321A /* Spring.swift in Sources */,
+				CA7CD1A01D598205003BCAC0 /* CartTools.swift in Sources */,
 				CA4CFC421D3DCFE6007F321A /* OrderMenu2016.xcdatamodeld in Sources */,
 				CA4CFC9C1D3E012D007F321A /* SoundPlayer.swift in Sources */,
 				CA4CFC951D3E012D007F321A /* DesignableView.swift in Sources */,

@@ -31,6 +31,15 @@ class CartTools  {
         return cart
     }
     
+    //设置一个新的购物车
+    static func setCart(cart:CartModel)
+    {
+        let data:NSData = NSKeyedArchiver.archivedDataWithRootObject(cart)
+        let sysDefaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        sysDefaults.setObject(data, forKey: "Cart")
+        sysDefaults.synchronize()
+    }
+    
     //移除当前购物车
     static func removeCart()
     {
