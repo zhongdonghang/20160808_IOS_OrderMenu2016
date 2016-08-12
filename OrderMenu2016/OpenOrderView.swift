@@ -10,13 +10,21 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+protocol  ISelectFuWuYuan {
+    func selectFuWuYuan(textField: UITextField,empAr:[EmpModel])
+}
+
+
+
 //选人，选桌子，开单
-class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate{
+    
+        var delgateSelectFuWuYuan:ISelectFuWuYuan!
     
         let txtRenShu:UITextField = UITextField()
         let txtZuoWei:UITextField = UITextField()
         let txtFuWuYuan:UITextField = UITextField()
-    
+        let lbOrderNo:UILabel = UILabel()
         var myListView:UICollectionView!
     
         var seatAr:[SeatModel] = []
@@ -129,7 +137,7 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             make.height.equalTo(20)
         }
         
-        let lbOrderNo:UILabel = UILabel()
+        
         lbOrderNo.textColor = AppLineBgColor
         lbOrderNo.text = ""
         self.addSubview(lbOrderNo)
@@ -152,7 +160,8 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
                 let json = JSON(data)
                 if(json["ResultCode"] == "200")//请求成功
                 {
-                   lbOrderNo.text = "订单号:\(json["strNo"])"
+                    print("\(json["strNo"])")
+                   self.lbOrderNo.text = "订单号:\(json["strNo"])"
                 }else
                 {
                     let text = "\(json["Msg"])"
@@ -178,6 +187,7 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
         
         let btnBegin = UIButton()
         btnBegin.setBackgroundImage(UIImage(named: "openOrder_003"), forState:UIControlState.Normal)
+        btnBegin.addTarget(self, action: #selector(OpenOrderView.btnBeginClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(btnBegin)
         btnBegin.snp_makeConstraints { (make) in
             make.top.equalTo(35)
@@ -277,6 +287,8 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
         txtFuWuYuan.font = UIFont.boldSystemFontOfSize(20)
         txtFuWuYuan.textAlignment = NSTextAlignment.Center
         txtFuWuYuan.layer.borderWidth = 1
+        txtFuWuYuan.tag = 99
+        txtFuWuYuan.delegate = self
         txtFuWuYuan.layer.borderColor = AppLineBgColor.CGColor
         self.addSubview(txtFuWuYuan)
         txtFuWuYuan.snp_makeConstraints { (make) in
@@ -373,6 +385,35 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
     func btnCloseClicked(sender:UIButton) {
         self.superview?.removeFromSuperview()
     }
+
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    {
+        if(textField.tag == 99)//服务员
+        {
+            delgateSelectFuWuYuan.selectFuWuYuan(textField,empAr: empAr)
+
+        }
+        return false;
+    }
+    
+    //开单
+    func btnBeginClicked(sender:UIButton)
+    {
+        if(txtZuoWei.text == "")
+        {
+            ViewAlertTextCommon.ShowSimpleText("请选择台位", view: self)
+        }
+        else if(txtFuWuYuan.text == "")
+        {
+            ViewAlertTextCommon.ShowSimpleText("请选择服务员", view: self)
+        }else
+        {
+            let cart:CartModel = CartModel(OrderId: lbOrderNo.text!, SeatNo: txtZuoWei.text!, PersonNum: 0, EmpNo: txtFuWuYuan.text!)
+            CartTools.setCart(cart)
+            self.superview?.removeFromSuperview()
+        }
+    }
+    
 
     /*
     // Only override drawRect: if you perform custom drawing.

@@ -17,8 +17,9 @@ let AppDetailsProductBgColor = UIColor(red: 247/255, green: 247/255, blue: 247/2
 let AppProductPriceTextColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)
 let AppProductPriceValueColor = UIColor(red: 230/255, green: 51/255, blue: 26/255, alpha: 1)
 
-class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNotExist {
-    
+
+class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNotExist,UIPopoverPresentationControllerDelegate,ISelectFuWuYuan,IFuWuYuanChecked,UIAlertViewDelegate {
+
     var objMainRightMenuView:MainRightMenuView!
     
     //菜品明细视图
@@ -51,7 +52,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         return OrderListViewContainer
     }()
     
-
+    var objOpenOrderView:OpenOrderView!
     
     //选中左侧菜单后执行的方法
     func menuSelected(menuId:String)
@@ -84,12 +85,9 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setBaseView()
         setLeftMenuTable()
         setButtons()
-        
-       
     }
     
     func detailsViewHide() {
@@ -184,12 +182,13 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    var objDetailsView:DetailsView!
     func ProductSelected(product:ProductSimpleViewModel)
     {
         
         view.addSubview(detailsViewContainer)
         
-        let objDetailsView:DetailsView = DetailsView(frame: CGRectMake(254, 0, 620, 768), product: product)
+        objDetailsView = DetailsView(frame: CGRectMake(254, 0, 620, 768), product: product)
        // objDetailsView.delegate = self
         detailsViewContainer.addSubview(objDetailsView)
         
@@ -225,9 +224,32 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         openOrderViewViewContainer.removeFromSuperview()
     }
     
+    let isNewOrderAlertView:UIAlertView = UIAlertView()
     //点击开单按钮
     func btnRenShuClicked(sender:UIButton) {
-        showNewCarView()
+        if(CartTools.checkCartIsExist())
+        {
+            isNewOrderAlertView.delegate = self
+            isNewOrderAlertView.message = "当前购物车尚未结束，确定要重新开一个新的购物车吗"
+            isNewOrderAlertView.title = "提示"
+            isNewOrderAlertView.addButtonWithTitle("是的")
+            isNewOrderAlertView.addButtonWithTitle("不要")
+            isNewOrderAlertView.show()
+
+        }else{
+            showNewCarView()
+        }
+    }
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
+    {
+        if(buttonIndex==0) //是得
+        {
+            showNewCarView()
+        }else if(buttonIndex==1)//不要
+        {
+            
+        }
     }
     
     //打开购物车
@@ -308,11 +330,13 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         showNewCarView()
     }
     
+
     //显示开单视图（人数/服务员/台位）
     func  showNewCarView() {
         view.addSubview(openOrderViewViewContainer)
-        let objOpenOrderView:OpenOrderView = OpenOrderView(frame: CGRectMake(151, 0, 873, 768) )
-        // objOpenOrderView.delegate = self
+        
+        objOpenOrderView = OpenOrderView(frame: CGRectMake(151, 0, 873, 768) )
+         objOpenOrderView.delgateSelectFuWuYuan = self
         openOrderViewViewContainer.addSubview(objOpenOrderView)
         let btnCloseOpenOrderViewContainer = UIButton()
         btnCloseOpenOrderViewContainer.backgroundColor = UIColor.clearColor()
@@ -336,7 +360,31 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
             make.left.equalTo(0)
         }
         openOrderViewViewContainer.animate()
+        
     }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        
+        return .None
+    }
+    
+      func selectFuWuYuan(textField: UITextField,empAr:[EmpModel])
+     {
+        let pop = PopoverController()
+        pop.delgateIFuWuYuanChecked = self
+        pop.empAr = empAr
+        pop.modalPresentationStyle = .Popover
+        pop.popoverPresentationController?.delegate = self
+        pop.popoverPresentationController?.sourceView = textField
+        pop.popoverPresentationController?.sourceRect = CGRectZero
+        self.presentViewController(pop, animated: true, completion: nil)
+    }
+    
+    func FuWuYuanChecked(emp:EmpModel)
+    {
+        objOpenOrderView.txtFuWuYuan.text = emp.Cname
+    }
+
 
     /*
     // MARK: - Navigation

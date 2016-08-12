@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA25FE971D5D83EA00222586 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA25FE961D5D83EA00222586 /* PopoverController.swift */; };
 		CA3186181D3F57FE003842D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3186171D3F57FE003842D7 /* MainViewController.swift */; };
 		CA31861E1D3F5EBA003842D7 /* MainLeftMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA31861D1D3F5EBA003842D7 /* MainLeftMenuView.swift */; };
 		CA3506D71D48BC5500CBCF91 /* ProductCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3506D61D48BC5500CBCF91 /* ProductCellView.swift */; };
@@ -309,6 +310,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CA25FE961D5D83EA00222586 /* PopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
 		CA3186171D3F57FE003842D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA31861D1D3F5EBA003842D7 /* MainLeftMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLeftMenuView.swift; sourceTree = "<group>"; };
 		CA3506D61D48BC5500CBCF91 /* ProductCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCellView.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				CA3186171D3F57FE003842D7 /* MainViewController.swift */,
+				CA25FE961D5D83EA00222586 /* PopoverController.swift */,
 			);
 			name = Ctrl;
 			sourceTree = "<group>";
@@ -903,6 +906,7 @@
 				CA4CFC3C1D3DCFE6007F321A /* ViewController.swift in Sources */,
 				CAB56D141D431AD800DFFCF1 /* OpenOrderView.swift in Sources */,
 				CA8AFA351D585E27000E8C60 /* LoginUserTools.swift in Sources */,
+				CA25FE971D5D83EA00222586 /* PopoverController.swift in Sources */,
 				CAF867D31D47ABBE00C2C815 /* ProductSimpleViewModel.swift in Sources */,
 				CA4CFCA61D3E012D007F321A /* TransitionZoom.swift in Sources */,
 				CAB56D1C1D43A61B00DFFCF1 /* CartView.swift in Sources */,
