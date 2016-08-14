@@ -11,12 +11,14 @@ import UIKit
 class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
 
     let dbTable:UITableView = UITableView()
+    var cart:CartModel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = AppDetailsProductBgColor
         setBaseView()
         setListView()
+        cart = CartTools.getCurrentCart()
     }
     
     func setBaseView() {
@@ -105,7 +107,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 10
+        return cart.List.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -132,7 +134,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
         }
         
         let lbCaiMingValue = UILabel()
-        lbCaiMingValue.text = "蚂蚁上树"
+        lbCaiMingValue.text = cart.List[indexPath.row].Item.CName
         lbCaiMingValue.textColor = AppProductPriceTextColor
         cell.contentView.addSubview(lbCaiMingValue)
         lbCaiMingValue.snp_makeConstraints { (make) in
@@ -151,7 +153,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
         }
         
         let lbPriceValue = UILabel()
-        lbPriceValue.text = "￥588元/份"
+        lbPriceValue.text = "￥\(cart.List[indexPath.row].Item.Price1)元/份"
         lbPriceValue.font = UIFont.boldSystemFontOfSize(24)
         lbPriceValue.textColor =  AppProductPriceValueColor
         cell.contentView.addSubview(lbPriceValue)
@@ -171,7 +173,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
         }
         
         let txtYiDian:UITextField = UITextField()
-        txtYiDian.text = "1"
+        txtYiDian.text = "\(cart.List[indexPath.row].Count)"
         txtYiDian.textColor = AppProductPriceTextColor
         txtYiDian.layer.cornerRadius = 5
         txtYiDian.font = UIFont.boldSystemFontOfSize(20)
@@ -207,7 +209,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
         }
         
         let lbXiaoJiPriceValue = UILabel()
-        lbXiaoJiPriceValue.text = "￥588"
+        lbXiaoJiPriceValue.text = "￥\(cart.List[indexPath.row].TotalPrice)"
         lbXiaoJiPriceValue.font = UIFont.boldSystemFontOfSize(24)
         lbXiaoJiPriceValue.textColor =  AppProductPriceValueColor
         cell.contentView.addSubview(lbXiaoJiPriceValue)

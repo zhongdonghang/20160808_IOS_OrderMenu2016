@@ -189,7 +189,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         view.addSubview(detailsViewContainer)
         
         objDetailsView = DetailsView(frame: CGRectMake(254, 0, 620, 768), product: product)
-       // objDetailsView.delegate = self
+        //objDetailsView.delgateCurrentCartNotExist = self
         detailsViewContainer.addSubview(objDetailsView)
         
         let btnCloseContainer = UIButton()

@@ -13,12 +13,15 @@ class DetailsView: UIView {
 
     var currentProduct:ProductSimpleViewModel!
     
+    let txtYiDian:UITextField = UITextField()
+    
     init(frame: CGRect,product:ProductSimpleViewModel)
     {
         super.init(frame: frame)
         currentProduct = product
         self.backgroundColor = AppDetailsProductBgColor
         setBaseView()
+        reloadInputViews()
     }
     
 
@@ -71,7 +74,6 @@ class DetailsView: UIView {
 
         let productImage:UIImageView = UIImageView()
         productImage.sd_setImageWithURL(NSURL(string: "http://1.nnbetter.com:8029/uploadFiles/\(currentProduct.ImgName)"))
-        
         productImage.layer.borderWidth = 2
         productImage.layer.borderColor = AppLineBgColor.CGColor
         self.addSubview(productImage)
@@ -161,20 +163,8 @@ class DetailsView: UIView {
             make.top.equalTo(360)
         }
         
-        let txtYiDian:UITextField = UITextField()
-        txtYiDian.text = "0"
-        txtYiDian.textColor = AppProductPriceTextColor
-        txtYiDian.layer.cornerRadius = 5
-        txtYiDian.font = UIFont.boldSystemFontOfSize(20)
-        txtYiDian.textAlignment = NSTextAlignment.Center
-        txtYiDian.layer.borderWidth = 1
-        txtYiDian.layer.borderColor = AppLineBgColor.CGColor
-        self.addSubview(txtYiDian)
-        txtYiDian.snp_makeConstraints { (make) in
-            make.left.equalTo(345)
-            make.top.equalTo(360)
-            make.width.equalTo(40)
-        }
+       
+ 
         
         let lbFen:UILabel = UILabel()
         lbFen.text = "份"
@@ -188,6 +178,7 @@ class DetailsView: UIView {
         
         let btnJian = UIButton()
         btnJian.setBackgroundImage(UIImage(named: "jian"), forState:UIControlState.Normal)
+        btnJian.addTarget(self, action: #selector(DetailsView.btnJianClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(btnJian)
         btnJian.snp_makeConstraints { (make) in
             make.top.equalTo(360)
@@ -198,6 +189,7 @@ class DetailsView: UIView {
         
         let btnJia = UIButton()
         btnJia.setBackgroundImage(UIImage(named: "jia"), forState:UIControlState.Normal)
+        btnJia.addTarget(self, action: #selector(DetailsView.btnJiaClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(btnJia)
         btnJia.snp_makeConstraints { (make) in
             make.top.equalTo(360)
@@ -217,6 +209,63 @@ class DetailsView: UIView {
             make.left.equalTo(40)
             make.width.equalTo(528)
             make.height.equalTo(360)
+        }
+    }
+    
+    override func reloadInputViews() {
+        
+        var pCount = "0";
+        if(CartTools.checkCartIsExist())
+        {
+            let cart:CartModel =  CartTools.getCurrentCart()
+            for pItem in cart.List {
+                if(pItem.Item.CName == currentProduct.CName)
+                {
+                    pCount = "\(pItem.Count)"
+                    break;
+                }
+            }
+        }
+        
+        txtYiDian.text = "\(pCount)"
+        txtYiDian.textColor = AppProductPriceTextColor
+        txtYiDian.layer.cornerRadius = 5
+        txtYiDian.font = UIFont.boldSystemFontOfSize(20)
+        txtYiDian.textAlignment = NSTextAlignment.Center
+        txtYiDian.layer.borderWidth = 1
+        txtYiDian.layer.borderColor = AppLineBgColor.CGColor
+        self.addSubview(txtYiDian)
+        txtYiDian.snp_makeConstraints { (make) in
+            make.left.equalTo(345)
+            make.top.equalTo(360)
+            make.width.equalTo(40)
+        }
+    }
+    
+    func btnJianClicked(sender:UIButton)
+    {
+        if(CartTools.checkCartIsExist())
+        {
+            let cart:CartModel =  CartTools.getCurrentCart()
+            cart.removeProductOne(RemoveProduct: currentProduct)
+            CartTools.setCart(cart)
+            reloadInputViews()
+        }else{
+           ViewAlertTextCommon.ShowSimpleText("尚未开单，请先开单", view: self)
+        }
+    }
+    
+    func btnJiaClicked(sender:UIButton)
+    {
+        if(CartTools.checkCartIsExist())
+        {
+            let cart:CartModel =  CartTools.getCurrentCart()
+            cart.addProduct(AddProduct: currentProduct)
+            CartTools.setCart(cart)
+            reloadInputViews()
+        }else //购物车不存在
+        {
+            ViewAlertTextCommon.ShowSimpleText("尚未开单，请先开单", view: self)
         }
     }
     
