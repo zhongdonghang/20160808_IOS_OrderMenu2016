@@ -8,8 +8,20 @@
 
 import UIKit
 
+//
+protocol CartProductAddOrRemove {
+    //指定购物车项增加一个
+    func addOne(item:CartItemModel)
+    //指定购物车项减少一个
+    func removeOne(item:CartItemModel)
+    //指定购物车项整项移除
+    func removeAll(item:CartItemModel)
+}
+
 //购物车列表cell
-class CartViewCell: UITableViewCell {
+class CartViewCell: UITableViewCell,UIAlertViewDelegate {
+    
+    var delgateCartProductAddOrRemove:CartProductAddOrRemove!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,14 +45,48 @@ class CartViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+     var isDeleteCartItemAlertView:UIAlertView!
+    
+    func btnDeleteClicked(sender:UIButton) {
+        isDeleteCartItemAlertView = UIAlertView()
+        isDeleteCartItemAlertView.delegate = self
+        isDeleteCartItemAlertView.tag = 1
+        isDeleteCartItemAlertView.message = "确认要移除掉本商品吗"
+        isDeleteCartItemAlertView.title = "提示"
+        isDeleteCartItemAlertView.addButtonWithTitle("是的")
+        isDeleteCartItemAlertView.addButtonWithTitle("不要")
+        isDeleteCartItemAlertView.show()
+    }
+    
+    func btnJianClicked(sender:UIButton) {
+        delgateCartProductAddOrRemove.removeOne(self.objCartItemModel)
+    }
+    
+    func btnJiaClicked(sender:UIButton) {
+         delgateCartProductAddOrRemove.addOne(self.objCartItemModel)
+    }
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
+    {
+        if(alertView.tag==1)
+        {
+            if(buttonIndex==0)
+            {
+                delgateCartProductAddOrRemove.removeAll(self.objCartItemModel)
+            }
+        }
+    }
     
     //删除图片按钮
     private lazy var btnDelete:UIButton = {
         
         let btnDelete = UIButton()
         btnDelete.setBackgroundImage(UIImage(named: "cart_002"), forState: UIControlState.Normal)
+        btnDelete.addTarget(self, action: #selector(CartViewCell.btnDeleteClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return btnDelete
     }()
+    
+
 
     
     //商品图片
@@ -123,6 +169,7 @@ class CartViewCell: UITableViewCell {
     //减 图片按钮
     private lazy var btnJian:UIButton = {
         let btnJian = UIButton()
+        btnJian.addTarget(self, action: #selector(CartViewCell.btnJianClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnJian.setBackgroundImage(UIImage(named: "jian"), forState: UIControlState.Normal)
         return btnJian
     }()
@@ -130,6 +177,7 @@ class CartViewCell: UITableViewCell {
     //加 图片按钮
     private lazy var btnJia:UIButton = {
         let btnJia = UIButton()
+        btnJia.addTarget(self, action: #selector(CartViewCell.btnJiaClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnJia.setBackgroundImage(UIImage(named: "jia"), forState: UIControlState.Normal)
         return btnJia
     }()
@@ -192,11 +240,11 @@ class CartViewCell: UITableViewCell {
         txtYiDian.snp_makeConstraints { (make) in
             make.left.equalTo(270)
             make.top.equalTo(90)
-            make.width.equalTo(40)
+            make.width.equalTo(75)
         }
         
         lbFen.snp_makeConstraints { (make) in
-            make.left.equalTo(320)
+            make.left.equalTo(360)
             make.top.equalTo(90)
         }
         

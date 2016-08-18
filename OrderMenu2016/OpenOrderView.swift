@@ -137,13 +137,22 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             make.height.equalTo(20)
         }
         
+        let lbOrderNoTitle = UILabel()
+        lbOrderNoTitle.textColor = AppLineBgColor
+        lbOrderNoTitle.text = "订单号"
+        self.addSubview(lbOrderNoTitle)
+        lbOrderNoTitle.snp_makeConstraints { (make) in
+            make.top.equalTo(40)
+            make.left.equalTo(220)
+            make.height.equalTo(20)
+        }
         
         lbOrderNo.textColor = AppLineBgColor
         lbOrderNo.text = ""
         self.addSubview(lbOrderNo)
         lbOrderNo.snp_makeConstraints { (make) in
             make.top.equalTo(40)
-            make.left.equalTo(220)
+            make.left.equalTo(280)
             make.height.equalTo(20)
         }
         
@@ -161,7 +170,7 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
                 if(json["ResultCode"] == "200")//请求成功
                 {
                     print("\(json["strNo"])")
-                   self.lbOrderNo.text = "订单号:\(json["strNo"])"
+                   self.lbOrderNo.text = "\(json["strNo"])"
                 }else
                 {
                     let text = "\(json["Msg"])"
@@ -413,14 +422,4 @@ class OpenOrderView: UIView ,UICollectionViewDelegate,UICollectionViewDataSource
             self.superview?.removeFromSuperview()
         }
     }
-    
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

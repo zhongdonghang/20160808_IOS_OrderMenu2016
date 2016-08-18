@@ -400,11 +400,6 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         
     }
     
-//    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-//        
-//        return .None
-//    }
-    
     //打开服务员选择的浮动窗口
     func selectFuWuYuan(textField: UITextField,empAr:[EmpModel])
      {
