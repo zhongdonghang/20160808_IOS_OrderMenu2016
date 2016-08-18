@@ -18,13 +18,13 @@ protocol CurrentCartNotExist
     func openCart()
 }
 
+//商品详情cell
 class ProductViewCell: UICollectionViewCell {
     
     var delgateCellClicked:CellClicked!
     var delgateCurrentCartNotExist:CurrentCartNotExist!
 
     var _product:ProductSimpleViewModel!
-
     let productImageView = UIImageView()
     let btnProduct:UIButton = UIButton()
     let productDescView:UIView = UIView()
@@ -48,7 +48,7 @@ class ProductViewCell: UICollectionViewCell {
         self.contentView.backgroundColor = UIColor.clearColor()
         
         //商品图片
-        productImageView.sd_setImageWithURL( NSURL(string: "http://1.nnbetter.com:8029/uploadFiles/\(_product.ImgName)"))
+        productImageView.sd_setImageWithURL( NSURL(string: "\(AppServer)uploadFiles/\(_product.ImgName)"))
         productImageView.layer.borderWidth = 1
         productImageView.layer.borderColor = AppLineBgColor.CGColor
         self.contentView.addSubview(productImageView)

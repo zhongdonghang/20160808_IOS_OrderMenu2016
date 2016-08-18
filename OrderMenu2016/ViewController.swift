@@ -17,6 +17,7 @@ let CURRENT_ORG_ID = "CURRENT_ORG_ID"
 /*
  接口路径1,包含了绝大多数业务接口方法
  */
+let AppServer = "http://1.nnbetter.com:8029/"
 let AppServerURL = "http://1.nnbetter.com:8029/api/appapi.asmx/"
 
 /*

@@ -20,7 +20,7 @@ let AppProductPriceValueColor = UIColor(red: 230/255, green: 51/255, blue: 26/25
 
 class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNotExist,UIPopoverPresentationControllerDelegate,ISelectFuWuYuan,IFuWuYuanChecked,UIAlertViewDelegate {
 
-    var objMainRightMenuView:MainRightMenuView!
+    
     
     //菜品明细视图
     lazy var detailsViewContainer: SpringView = {
@@ -28,7 +28,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         return detailsViewContainer
     }()
     
-    //开单视图容器
+    //开单视图容器(选座位，服务员)
     lazy var openOrderViewViewContainer: SpringView = {
         let openOrderViewViewContainer = SpringView()
         return openOrderViewViewContainer
@@ -53,6 +53,11 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     }()
     
     var objOpenOrderView:OpenOrderView!
+    var objMainRightMenuView:MainRightMenuView!
+    var objDetailsView:DetailsView!
+    
+    let isNewOrderAlertView:UIAlertView = UIAlertView()
+    let isTuiChuAlertView:UIAlertView = UIAlertView()
     
     //选中左侧菜单后执行的方法
     func menuSelected(menuId:String)
@@ -64,9 +69,13 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         }
         objMainRightMenuView = MainRightMenuView(frame:  CGRectMake(0, 0, self.view.bounds.width-180, self.view.bounds.height-30),menuid: menuId)
         
+        //点击商品显示详情的委托
         objMainRightMenuView.delegateProductSelected = self
+        
+        //开新单（选座位，选服务员）的委托
         objMainRightMenuView.delegateNewCart = self
         
+        //选中左边类别后右边刷新菜品列表
         listViewContainer.addSubview(objMainRightMenuView)
         listViewContainer.animation = "zoomIn"
         listViewContainer.backgroundColor = UIColor.clearColor()
@@ -80,9 +89,9 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
             make.height.equalTo(self.view.bounds.height-30)
         }
         listViewContainer.animate()
-
     }
     
+    //窗体加载事件
     override func viewDidLoad() {
         super.viewDidLoad()
         setBaseView()
@@ -90,6 +99,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         setButtons()
     }
     
+    //商品详细视图移除
     func detailsViewHide() {
         detailsViewContainer.removeFromSuperview()
     }
@@ -133,6 +143,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     func setButtons()  {
 
+        //购物车（已点）按钮
         let btnCart = UIButton()
         btnCart.setBackgroundImage(UIImage(named: "main_yidian"), forState: UIControlState.Normal)
         btnCart.addTarget(self, action: #selector(MainViewController.btnCartClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -144,6 +155,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
             make.height.equalTo(44)
         }
         
+        //开单按钮（选座位，选服务员）
         let btnRenShu = UIButton()
         btnRenShu.setBackgroundImage(UIImage(named: "renshu"), forState: UIControlState.Normal)
         btnRenShu.addTarget(self, action: #selector(MainViewController.btnRenShuClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -155,6 +167,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
             make.height.equalTo(40)
         }
         
+        //进行中订单的按钮
         let btnOrders = UIButton()
         btnOrders.setBackgroundImage(UIImage(named: "daifa"), forState: UIControlState.Normal)
         btnOrders.addTarget(self, action: #selector(MainViewController.btnOrdersClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -166,6 +179,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
             make.height.equalTo(40)
         }
         
+        //退出按钮
         let btnTuiChu = UIButton()
         btnTuiChu.setBackgroundImage(UIImage(named: "tuichu"), forState: UIControlState.Normal)
         btnTuiChu.addTarget(self, action: #selector(MainViewController.btnTuiChuClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -178,11 +192,21 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         }
     }
     
+    
     func btnTuiChuClicked(sender:UIButton)  {
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        isTuiChuAlertView.delegate = self
+        isTuiChuAlertView.tag = 2
+        isTuiChuAlertView.message = "退出将会清空当前购物车的数据，确定吗"
+        isTuiChuAlertView.title = "提示"
+        isTuiChuAlertView.addButtonWithTitle("是的")
+        isTuiChuAlertView.addButtonWithTitle("不要")
+        isTuiChuAlertView.show()
+        
+       
     }
     
-    var objDetailsView:DetailsView!
+    
     func ProductSelected(product:ProductSimpleViewModel)
     {
         
@@ -224,12 +248,13 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         openOrderViewViewContainer.removeFromSuperview()
     }
     
-    let isNewOrderAlertView:UIAlertView = UIAlertView()
+    
     //点击开单按钮
     func btnRenShuClicked(sender:UIButton) {
         if(CartTools.checkCartIsExist())
         {
             isNewOrderAlertView.delegate = self
+            isNewOrderAlertView.tag = 1
             isNewOrderAlertView.message = "当前购物车尚未结束，确定要重新开一个新的购物车吗"
             isNewOrderAlertView.title = "提示"
             isNewOrderAlertView.addButtonWithTitle("是的")
@@ -243,45 +268,58 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
     {
-        if(buttonIndex==0) //是得
+        if(alertView.tag==1)
         {
-            showNewCarView()
-        }else if(buttonIndex==1)//不要
+            if(buttonIndex==0) //是得
+            {
+                showNewCarView()
+            }
+        }
+        if(alertView.tag==2) //清空购物车，退出到首页
         {
-            
+            if(buttonIndex==0) //是得
+            {
+                CartTools.removeCart()
+                self.navigationController?.popViewControllerAnimated(true)
+            }
         }
     }
     
     //打开购物车
     func  btnCartClicked(sender:UIButton) {
-       
-        view.addSubview(CartViewContainer)
-        let objCartView:CartView = CartView(frame: CGRectMake(400, 0, 624, 768))
-        // objOpenOrderView.delegate = self
-        CartViewContainer.addSubview(objCartView)
-        
-        let btnCloseCartViewContainer = UIButton()
-        btnCloseCartViewContainer.backgroundColor = UIColor.clearColor()
-        CartViewContainer.addSubview(btnCloseCartViewContainer)
-        btnCloseCartViewContainer.addTarget(self, action: #selector(MainViewController.btnCloseCartViewContainerClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        btnCloseCartViewContainer.snp_makeConstraints { (make) in
-            make.width.equalTo(400)
-            make.top.equalTo(0)
-            make.bottom.equalTo(0)
-            make.left.equalTo(0)
+        if(CartTools.checkCartIsExist())
+        {
+            view.addSubview(CartViewContainer)
+            let objCartView:CartView = CartView(frame: CGRectMake(400, 0, 624, 768))
+            // objOpenOrderView.delegate = self
+            CartViewContainer.addSubview(objCartView)
+            
+            let btnCloseCartViewContainer = UIButton()
+            btnCloseCartViewContainer.backgroundColor = UIColor.clearColor()
+            CartViewContainer.addSubview(btnCloseCartViewContainer)
+            btnCloseCartViewContainer.addTarget(self, action: #selector(MainViewController.btnCloseCartViewContainerClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            btnCloseCartViewContainer.snp_makeConstraints { (make) in
+                make.width.equalTo(400)
+                make.top.equalTo(0)
+                make.bottom.equalTo(0)
+                make.left.equalTo(0)
+            }
+            
+            CartViewContainer.animation = "squeezeLeft"
+            CartViewContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+            CartViewContainer.curve = "easeIn"
+            CartViewContainer.duration = 0.4
+            CartViewContainer.snp_makeConstraints { (make) in
+                make.right.equalTo(0)
+                make.top.equalTo(0)
+                make.bottom.equalTo(0)
+                make.left.equalTo(0)
+            }
+            CartViewContainer.animate()
+        }else{
+            ViewAlertTextCommon.ShowSimpleText("当前尚无购物车，请开新单", view: self.view)
         }
 
-        CartViewContainer.animation = "squeezeLeft"
-        CartViewContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-        CartViewContainer.curve = "easeIn"
-        CartViewContainer.duration = 0.4
-        CartViewContainer.snp_makeConstraints { (make) in
-            make.right.equalTo(0)
-            make.top.equalTo(0)
-            make.bottom.equalTo(0)
-            make.left.equalTo(0)
-        }
-        CartViewContainer.animate()
     }
     
     func btnOrdersClicked(sender:UIButton){
@@ -301,7 +339,6 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
             make.bottom.equalTo(0)
             make.left.equalTo(0)
         }
-        
         
         OrderListViewContainer.animation = "squeezeLeft"
         OrderListViewContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
@@ -363,12 +400,13 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        
-        return .None
-    }
+//    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+//        
+//        return .None
+//    }
     
-      func selectFuWuYuan(textField: UITextField,empAr:[EmpModel])
+    //打开服务员选择的浮动窗口
+    func selectFuWuYuan(textField: UITextField,empAr:[EmpModel])
      {
         let pop = PopoverController()
         pop.delgateIFuWuYuanChecked = self
@@ -380,20 +418,9 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         self.presentViewController(pop, animated: true, completion: nil)
     }
     
+    //选中服务员的回调方法
     func FuWuYuanChecked(emp:EmpModel)
     {
         objOpenOrderView.txtFuWuYuan.text = emp.Cname
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -108,6 +108,8 @@ class MainRightMenuView: UIView,UICollectionViewDelegate,UICollectionViewDataSou
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("mycell", forIndexPath: indexPath) as! ProductViewCell
         cell.Product = tbData[indexPath.row]
+        cell.layoutSubviews()
+        
         cell.delgateCellClicked = self
         cell.delgateCurrentCartNotExist = self
         return cell

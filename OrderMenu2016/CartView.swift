@@ -16,8 +16,6 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = AppDetailsProductBgColor
-        setBaseView()
-        setListView()
         cart = CartTools.getCurrentCart()
     }
     
@@ -111,144 +109,155 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.clearColor()
-        
-        let btnDelete:UIButton = UIButton()
-        btnDelete.setBackgroundImage(UIImage(named: "cart_002"), forState: UIControlState.Normal)
-        cell.contentView.addSubview(btnDelete)
-        btnDelete.snp_makeConstraints { (make) in
-            make.width.equalTo(30)
-            make.left.equalTo(5)
-            make.centerY.equalTo(cell.contentView)
-           make.height.equalTo(26)
-        }
-        
-        let pImage:UIImageView = UIImageView(image: UIImage(named: "cart_004"))
-         cell.contentView.addSubview(pImage)
-        pImage.snp_makeConstraints { (make) in
-             make.centerY.equalTo(cell.contentView)
-            make.left.equalTo(40)
-            make.width.equalTo(162)
-            make.height.equalTo(97)
-        }
-        
-        let lbCaiMingValue = UILabel()
-        lbCaiMingValue.text = cart.List[indexPath.row].Item.CName
-        lbCaiMingValue.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbCaiMingValue)
-        lbCaiMingValue.snp_makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.left.equalTo(220)
-        }
-        
-        let lbPrice = UILabel()
-        lbPrice.text = "价格:"
-        lbPrice.font = UIFont.boldSystemFontOfSize(20)
-        lbPrice.textColor =  AppProductPriceTextColor
-        cell.contentView.addSubview(lbPrice)
-        lbPrice.snp_makeConstraints { (make) in
-            make.top.equalTo(45)
-            make.left.equalTo(220)
-        }
-        
-        let lbPriceValue = UILabel()
-        lbPriceValue.text = "￥\(cart.List[indexPath.row].Item.Price1)元/份"
-        lbPriceValue.font = UIFont.boldSystemFontOfSize(24)
-        lbPriceValue.textColor =  AppProductPriceValueColor
-        cell.contentView.addSubview(lbPriceValue)
-        lbPriceValue.snp_makeConstraints { (make) in
-            make.top.equalTo(45)
-            make.left.equalTo(270)
-        }
-        
-        let lbYiDian:UILabel = UILabel()
-        lbYiDian.text = "已点"
-        lbYiDian.font = UIFont.boldSystemFontOfSize(20)
-        lbYiDian.textColor = AppLineBgColor
-        cell.contentView.addSubview(lbYiDian)
-        lbYiDian.snp_makeConstraints { (make) in
-            make.left.equalTo(220)
-            make.top.equalTo(90)
-        }
-        
-        let txtYiDian:UITextField = UITextField()
-        txtYiDian.text = "\(cart.List[indexPath.row].Count)"
-        txtYiDian.textColor = AppProductPriceTextColor
-        txtYiDian.layer.cornerRadius = 5
-        txtYiDian.font = UIFont.boldSystemFontOfSize(20)
-        txtYiDian.textAlignment = NSTextAlignment.Center
-        txtYiDian.layer.borderWidth = 1
-        txtYiDian.layer.borderColor = AppLineBgColor.CGColor
-        cell.contentView.addSubview(txtYiDian)
-        txtYiDian.snp_makeConstraints { (make) in
-            make.left.equalTo(270)
-            make.top.equalTo(90)
-            make.width.equalTo(40)
-        }
-        
-        let lbFen:UILabel = UILabel()
-        lbFen.text = "份"
-        lbFen.font = UIFont.boldSystemFontOfSize(20)
-        lbFen.textColor = AppLineBgColor
-        cell.contentView.addSubview(lbFen)
-        lbFen.snp_makeConstraints { (make) in
-            make.left.equalTo(320)
-            make.top.equalTo(90)
-        }
+        let cell = CartViewCell(style: .Default, reuseIdentifier: "myCell")
+        cell.objCartItemModel = cart.List[indexPath.row]
+       // let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath)
         
         
-        let lbXiaoJiPrice = UILabel()
-        lbXiaoJiPrice.text = "小计:"
-        lbXiaoJiPrice.font = UIFont.boldSystemFontOfSize(20)
-        lbXiaoJiPrice.textColor =  AppProductPriceTextColor
-        cell.contentView.addSubview(lbXiaoJiPrice)
-        lbXiaoJiPrice.snp_makeConstraints { (make) in
-            make.top.equalTo(90)
-            make.right.equalTo(-120)
-        }
         
-        let lbXiaoJiPriceValue = UILabel()
-        lbXiaoJiPriceValue.text = "￥\(cart.List[indexPath.row].TotalPrice)"
-        lbXiaoJiPriceValue.font = UIFont.boldSystemFontOfSize(24)
-        lbXiaoJiPriceValue.textColor =  AppProductPriceValueColor
-        cell.contentView.addSubview(lbXiaoJiPriceValue)
-        lbXiaoJiPriceValue.snp_makeConstraints { (make) in
-            make.top.equalTo(90)
-            make.right.equalTo(-50)
-        }
-
-        let btnJian:UIButton = UIButton()
-        btnJian.setBackgroundImage(UIImage(named: "jian"), forState: UIControlState.Normal)
-        cell.contentView.addSubview(btnJian)
-        btnJian.snp_makeConstraints { (make) in
-            make.right.equalTo(-90)
-            make.top.equalTo(20)
-            make.width.equalTo(54)
-            make.height.equalTo(34)
-        }
-        
-        let btnJia:UIButton = UIButton()
-        btnJia.setBackgroundImage(UIImage(named: "jia"), forState: UIControlState.Normal)
-        cell.contentView.addSubview(btnJia)
-        btnJia.snp_makeConstraints { (make) in
-            make.right.equalTo(-30)
-            make.top.equalTo(20)
-            make.width.equalTo(54)
-            make.height.equalTo(34)
-        }
-        
-        let lineView1 = UIView()
-        lineView1.backgroundColor = AppLineBgColor
-        cell.contentView.addSubview(lineView1)
-        lineView1.snp_makeConstraints { (make) in
-
-            make.left.equalTo(40)
-            make.height.equalTo(1)
-            make.bottom.equalTo(-1)
-            make.right.equalTo(0)
-        }
-        
+       // cell.backgroundColor = UIColor.clearColor()
+//        let btnDelete:UIButton = UIButton()
+//        btnDelete.setBackgroundImage(UIImage(named: "cart_002"), forState: UIControlState.Normal)
+//        cell.contentView.addSubview(btnDelete)
+//        btnDelete.snp_makeConstraints { (make) in
+//            make.width.equalTo(30)
+//            make.left.equalTo(5)
+//            make.centerY.equalTo(cell.contentView)
+//           make.height.equalTo(26)
+//        }
+//        
+//        let pImage:UIImageView = UIImageView()
+//        
+//         pImage.sd_setImageWithURL( NSURL(string: "http://1.nnbetter.com:8029/uploadFiles/\(cart.List[indexPath.row].Item.ImgName)"))
+//        
+//         cell.contentView.addSubview(pImage)
+//        pImage.snp_makeConstraints { (make) in
+//             make.centerY.equalTo(cell.contentView)
+//            make.left.equalTo(40)
+//            make.width.equalTo(162)
+//            make.height.equalTo(97)
+//        }
+//        
+//        let lbCaiMingValue = UILabel()
+//        lbCaiMingValue.text = cart.List[indexPath.row].Item.CName
+//        lbCaiMingValue.textColor = AppProductPriceTextColor
+//        cell.contentView.addSubview(lbCaiMingValue)
+//        lbCaiMingValue.snp_makeConstraints { (make) in
+//            make.top.equalTo(20)
+//            make.left.equalTo(220)
+//        }
+//        
+//        let lbPrice = UILabel()
+//        lbPrice.text = "价格:"
+//        lbPrice.font = UIFont.boldSystemFontOfSize(20)
+//        lbPrice.textColor =  AppProductPriceTextColor
+//        cell.contentView.addSubview(lbPrice)
+//        lbPrice.snp_makeConstraints { (make) in
+//            make.top.equalTo(45)
+//            make.left.equalTo(220)
+//        }
+//        
+//        let lbPriceValue = UILabel()
+//        lbPriceValue.text = "￥\(cart.List[indexPath.row].Item.Price1)元/份"
+//        lbPriceValue.font = UIFont.boldSystemFontOfSize(24)
+//        lbPriceValue.textColor =  AppProductPriceValueColor
+//        cell.contentView.addSubview(lbPriceValue)
+//        lbPriceValue.snp_makeConstraints { (make) in
+//            make.top.equalTo(45)
+//            make.left.equalTo(270)
+//        }
+//        
+//        let lbYiDian:UILabel = UILabel()
+//        lbYiDian.text = "已点"
+//        lbYiDian.font = UIFont.boldSystemFontOfSize(20)
+//        lbYiDian.textColor = AppLineBgColor
+//        cell.contentView.addSubview(lbYiDian)
+//        lbYiDian.snp_makeConstraints { (make) in
+//            make.left.equalTo(220)
+//            make.top.equalTo(90)
+//        }
+//        
+//        let txtYiDian:UITextField = UITextField()
+//        txtYiDian.text = "\(cart.List[indexPath.row].Count)"
+//        txtYiDian.textColor = AppProductPriceTextColor
+//        txtYiDian.layer.cornerRadius = 5
+//        txtYiDian.font = UIFont.boldSystemFontOfSize(20)
+//        txtYiDian.textAlignment = NSTextAlignment.Center
+//        txtYiDian.layer.borderWidth = 1
+//        txtYiDian.layer.borderColor = AppLineBgColor.CGColor
+//        cell.contentView.addSubview(txtYiDian)
+//        txtYiDian.snp_makeConstraints { (make) in
+//            make.left.equalTo(270)
+//            make.top.equalTo(90)
+//            make.width.equalTo(40)
+//        }
+//        
+//        let lbFen:UILabel = UILabel()
+//        lbFen.text = "份"
+//        lbFen.font = UIFont.boldSystemFontOfSize(20)
+//        lbFen.textColor = AppLineBgColor
+//        cell.contentView.addSubview(lbFen)
+//        lbFen.snp_makeConstraints { (make) in
+//            make.left.equalTo(320)
+//            make.top.equalTo(90)
+//        }
+//        
+//        
+//        let lbXiaoJiPrice = UILabel()
+//        lbXiaoJiPrice.text = "小计:"
+//        lbXiaoJiPrice.font = UIFont.boldSystemFontOfSize(20)
+//        lbXiaoJiPrice.textColor =  AppProductPriceTextColor
+//        cell.contentView.addSubview(lbXiaoJiPrice)
+//        lbXiaoJiPrice.snp_makeConstraints { (make) in
+//            make.top.equalTo(90)
+//            make.right.equalTo(-120)
+//        }
+//        
+//        let lbXiaoJiPriceValue = UILabel()
+//        lbXiaoJiPriceValue.text = "￥\(cart.List[indexPath.row].TotalPrice)"
+//        lbXiaoJiPriceValue.font = UIFont.boldSystemFontOfSize(24)
+//        lbXiaoJiPriceValue.textColor =  AppProductPriceValueColor
+//        cell.contentView.addSubview(lbXiaoJiPriceValue)
+//        lbXiaoJiPriceValue.snp_makeConstraints { (make) in
+//            make.top.equalTo(90)
+//            make.right.equalTo(-50)
+//        }
+//
+//        let btnJian:UIButton = UIButton()
+//        btnJian.tag = indexPath.row
+//        btnJian.addTarget(self, action: #selector(CartView.btnJianClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        btnJian.setBackgroundImage(UIImage(named: "jian"), forState: UIControlState.Normal)
+//        cell.contentView.addSubview(btnJian)
+//        btnJian.snp_makeConstraints { (make) in
+//            make.right.equalTo(-90)
+//            make.top.equalTo(20)
+//            make.width.equalTo(54)
+//            make.height.equalTo(34)
+//        }
+//        
+//        let btnJia:UIButton = UIButton()
+//        btnJia.tag = indexPath.row
+//        btnJia.addTarget(self, action: #selector(CartView.btnJiaClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        btnJia.setBackgroundImage(UIImage(named: "jia"), forState: UIControlState.Normal)
+//        cell.contentView.addSubview(btnJia)
+//        btnJia.snp_makeConstraints { (make) in
+//            make.right.equalTo(-30)
+//            make.top.equalTo(20)
+//            make.width.equalTo(54)
+//            make.height.equalTo(34)
+//        }
+//        
+//        let lineView1 = UIView()
+//        lineView1.backgroundColor = AppLineBgColor
+//        cell.contentView.addSubview(lineView1)
+//        lineView1.snp_makeConstraints { (make) in
+//
+//            make.left.equalTo(40)
+//            make.height.equalTo(1)
+//            make.bottom.equalTo(-1)
+//            make.right.equalTo(0)
+//        }
+//        
         return cell
     }
     
@@ -256,14 +265,39 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource{
     {
 
     }
-
     
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setBaseView()
+        setListView()
+        cart = CartTools.getCurrentCart()
+        dbTable.reloadData()
     }
-    */
-
+    
+    func btnJianClicked(sender:UIButton)  {
+        
+        if(CartTools.checkCartIsExist())
+        {
+            let cart:CartModel =  CartTools.getCurrentCart()
+            cart.removeProductOne(RemoveProduct: cart.List[sender.tag].Item)
+            CartTools.setCart(cart)
+            layoutSubviews()
+        }else{
+            ViewAlertTextCommon.ShowSimpleText("尚未开单，请先开单", view: self)
+        }
+    }
+    
+    func btnJiaClicked(sender:UIButton) {
+        if(CartTools.checkCartIsExist())
+        {
+            let cart:CartModel =  CartTools.getCurrentCart()
+            cart.addProduct(AddProduct: cart.List[sender.tag].Item)
+            CartTools.setCart(cart)
+            layoutSubviews()
+        }else //购物车不存在
+        {
+            ViewAlertTextCommon.ShowSimpleText("尚未开单，请先开单", view: self)
+        }
+    }
 }
