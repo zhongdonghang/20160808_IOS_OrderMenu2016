@@ -17,6 +17,8 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
     let dbTable:UITableView = UITableView()
     var cart:CartModel!
     
+    var isSubmitOrderAlertView:UIAlertView!
+    
     //总金恩
     private lazy var lbZongJiPrice: UILabel = {
         let lbZongJiPrice = UILabel()
@@ -227,17 +229,23 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
         }
     }
     
-    var isSubmitOrderAlertView:UIAlertView!
+    
     //下单
     func btnOrderClicked(sender:UIButton)  {
-        isSubmitOrderAlertView = UIAlertView()
-        isSubmitOrderAlertView.delegate = self
-        isSubmitOrderAlertView.tag = 1
-        isSubmitOrderAlertView.message = "确认提交本订单?"
-        isSubmitOrderAlertView.title = "提示"
-        isSubmitOrderAlertView.addButtonWithTitle("是的")
-        isSubmitOrderAlertView.addButtonWithTitle("不要")
-        isSubmitOrderAlertView.show()
+        if(CartTools.getCurrentCart().List.count>0)
+        {
+            isSubmitOrderAlertView = UIAlertView()
+            isSubmitOrderAlertView.delegate = self
+            isSubmitOrderAlertView.tag = 1
+            isSubmitOrderAlertView.message = "确认提交本订单?"
+            isSubmitOrderAlertView.title = "提示"
+            isSubmitOrderAlertView.addButtonWithTitle("是的")
+            isSubmitOrderAlertView.addButtonWithTitle("不要")
+            isSubmitOrderAlertView.show()
+        }
+        else{
+            ViewAlertTextCommon.ShowSimpleText("购物车尚无任何东西，不能提交", view: self)
+        }
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
@@ -252,7 +260,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
                     "_json": jsonStr,
                     "op":"add"
                 ]
-
+                
                 let url = AppServerURL+"ProcessingOrders"
                 let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
                 hud.label.text = "订单处理中"
@@ -279,5 +287,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
             }
         }
     }
+    
+    
    
 }
