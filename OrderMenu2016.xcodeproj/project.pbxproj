@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA11EA8F1D65503A00F95970 /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA11EA8E1D65503A00F95970 /* CartViewCell.swift */; };
+		CA11EAAA1D65B89C00F95970 /* OrderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA11EAA91D65B89C00F95970 /* OrderViewCell.swift */; };
 		CA25FE971D5D83EA00222586 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA25FE961D5D83EA00222586 /* PopoverController.swift */; };
 		CA3186181D3F57FE003842D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3186171D3F57FE003842D7 /* MainViewController.swift */; };
 		CA31861E1D3F5EBA003842D7 /* MainLeftMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA31861D1D3F5EBA003842D7 /* MainLeftMenuView.swift */; };
@@ -60,6 +61,8 @@
 		CA5F260E1D4763BA0004C19B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5F26001D47637D0004C19B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CA5F26291D47643D0004C19B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5F261C1D4764330004C19B /* SwiftyJSON.framework */; };
 		CA5F262A1D47643E0004C19B /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5F261C1D4764330004C19B /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA6717B81D674414002E86E8 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6717B71D674414002E86E8 /* OrderViewModel.swift */; };
+		CA6717D11D67479C002E86E8 /* OrderItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6717D01D67479C002E86E8 /* OrderItemViewModel.swift */; };
 		CA7CD1A01D598205003BCAC0 /* CartTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7CD19F1D598205003BCAC0 /* CartTools.swift */; };
 		CA7D491A1D49B3B400A90780 /* CartItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D49191D49B3B400A90780 /* CartItemModel.swift */; };
 		CA7D49331D49B42E00A90780 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D49321D49B42E00A90780 /* CartModel.swift */; };
@@ -313,6 +316,7 @@
 
 /* Begin PBXFileReference section */
 		CA11EA8E1D65503A00F95970 /* CartViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
+		CA11EAA91D65B89C00F95970 /* OrderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewCell.swift; sourceTree = "<group>"; };
 		CA25FE961D5D83EA00222586 /* PopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
 		CA3186171D3F57FE003842D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA31861D1D3F5EBA003842D7 /* MainLeftMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLeftMenuView.swift; sourceTree = "<group>"; };
@@ -367,6 +371,8 @@
 		CA5F25F31D4763270004C19B /* ViewAlertTextCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAlertTextCommon.swift; sourceTree = "<group>"; };
 		CA5F25F51D47637D0004C19B /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		CA5F26111D4764330004C19B /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		CA6717B71D674414002E86E8 /* OrderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
+		CA6717D01D67479C002E86E8 /* OrderItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItemViewModel.swift; sourceTree = "<group>"; };
 		CA7CD19F1D598205003BCAC0 /* CartTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartTools.swift; sourceTree = "<group>"; };
 		CA7D49191D49B3B400A90780 /* CartItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartItemModel.swift; sourceTree = "<group>"; };
 		CA7D49321D49B42E00A90780 /* CartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 				CA7D493E1D4A0B6800A90780 /* OpeateDescView.swift */,
 				CA85AB6D1D5EB303003431CE /* ProductViewCell.swift */,
 				CA11EA8E1D65503A00F95970 /* CartViewCell.swift */,
+				CA11EAA91D65B89C00F95970 /* OrderViewCell.swift */,
 			);
 			name = CustView;
 			sourceTree = "<group>";
@@ -591,6 +598,8 @@
 				CA8AFA1B1D585A4F000E8C60 /* SimpleLoginUserModel.swift */,
 				CA5A2DD81D5AD5AF000D72AA /* SeatModel.swift */,
 				CA5A2DF11D5AD5BA000D72AA /* EmpModel.swift */,
+				CA6717B71D674414002E86E8 /* OrderViewModel.swift */,
+				CA6717D01D67479C002E86E8 /* OrderItemViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -895,6 +904,7 @@
 				CA5A2DF21D5AD5BA000D72AA /* EmpModel.swift in Sources */,
 				CA3506D71D48BC5500CBCF91 /* ProductCellView.swift in Sources */,
 				CA4CFC9B1D3E012D007F321A /* Misc.swift in Sources */,
+				CA6717B81D674414002E86E8 /* OrderViewModel.swift in Sources */,
 				CA4CFC8E1D3E012D007F321A /* BlurView.swift in Sources */,
 				CA4CFCA71D3E012D007F321A /* UnwindSegue.swift in Sources */,
 				CA5F25F21D4762EE0004C19B /* MBProgressHUD.m in Sources */,
@@ -921,8 +931,10 @@
 				CA5F25EA1D474A390004C19B /* Sys_Constant.swift in Sources */,
 				CA31861E1D3F5EBA003842D7 /* MainLeftMenuView.swift in Sources */,
 				CA3186181D3F57FE003842D7 /* MainViewController.swift in Sources */,
+				CA6717D11D67479C002E86E8 /* OrderItemViewModel.swift in Sources */,
 				CA4CFC931D3E012D007F321A /* DesignableTextField.swift in Sources */,
 				CA4CFCA51D3E012D007F321A /* TransitionManager.swift in Sources */,
+				CA11EAAA1D65B89C00F95970 /* OrderViewCell.swift in Sources */,
 				CAF867D11D47A1B200C2C815 /* ProductCateoryViewModel.swift in Sources */,
 				CA4CFCA11D3E012D007F321A /* SpringLabel.swift in Sources */,
 				CA7D49371D49DA5800A90780 /* LoginView.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-//
+
 protocol CartProductAddOrRemove {
     //指定购物车项增加一个
     func addOne(item:CartItemModel)
@@ -45,7 +45,7 @@ class CartViewCell: UITableViewCell,UIAlertViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-     var isDeleteCartItemAlertView:UIAlertView!
+    var isDeleteCartItemAlertView:UIAlertView!
     
     func btnDeleteClicked(sender:UIButton) {
         isDeleteCartItemAlertView = UIAlertView()

@@ -19,7 +19,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
     
     var isSubmitOrderAlertView:UIAlertView!
     
-    //总金恩
+    //总金额
     private lazy var lbZongJiPrice: UILabel = {
         let lbZongJiPrice = UILabel()
         lbZongJiPrice.text = "总金额:"
@@ -264,7 +264,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
                 let url = AppServerURL+"ProcessingOrders"
                 let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
                 hud.label.text = "订单处理中"
-                Alamofire.request(.GET, url,parameters: parameters).responseJSON { (response) in
+                Alamofire.request(.POST, url,parameters: parameters).responseJSON { (response) in
                     switch response.result {
                     case.Success(let data):
                         let json = JSON(data)
@@ -287,7 +287,4 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
             }
         }
     }
-    
-    
-   
 }

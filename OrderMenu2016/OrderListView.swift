@@ -7,16 +7,27 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource{
     
     let dbTable:UITableView = UITableView()
+    var list:[OrderViewModel] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         self.backgroundColor = AppDetailsProductBgColor
         setBaseView()
         setListView()
+        loadOrderList()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+ 
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,7 +85,7 @@ class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource{
         
         dbTable.separatorStyle = UITableViewCellSeparatorStyle.None
         dbTable.backgroundColor = UIColor.clearColor()
-        dbTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "myCell")
+        dbTable.registerClass(OrderViewCell.self, forCellReuseIdentifier: "myCell")
         self.addSubview(dbTable)
         dbTable.snp_makeConstraints { (make) in
             make.top.equalTo(80)
@@ -82,7 +93,67 @@ class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource{
             make.bottom.equalTo(-50)
             make.right.equalTo(-50)
         }
-
+        
+    }
+    
+    func loadOrderList()
+    {
+        let url = AppServerURL+"GetSimpleOrderList"
+        print(url)
+        let parameters = [
+            "_pageIndex":"0",
+            "_pageSize":"9999",
+            "_orgid": LoginUserTools.getCurrentOrgId()
+        ]
+        let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
+        hud.label.text = "loading..."
+        Alamofire.request(.GET, url,parameters: parameters).responseJSON { (response) in
+            switch response.result {
+            case.Success(let data):
+                let json = JSON(data)
+                if(json["ResultCode"] == "200")//请求成功
+                {
+                    self.list.removeAll()
+                    for obj in json["Page"]["Data"]
+                    {
+                        let objOrder = OrderViewModel()
+                        objOrder.MemberName = "\(obj.1["MemberName"])"
+                        objOrder.CreateTime = "\(obj.1["CreateTime"])"
+                        objOrder.orderNo = "\(obj.1["orderNo"])"
+                        objOrder.Dec = "\(obj.1["Dec"])"
+                        objOrder.Seat = "\(obj.1["Seat"])"
+                        objOrder.PeopleNum = "\(obj.1["PeopleNum"])"
+                        
+                        for objItem in obj.1["orderInfo"]
+                        {
+                            let objOrderItemViewModel:OrderItemViewModel=OrderItemViewModel()
+                            objOrderItemViewModel.MemberName = "\(objItem.1["MemberName"])"
+                            print(objOrderItemViewModel.MemberName )
+                            objOrderItemViewModel.CreateOn = "\(objItem.1["CreateOn"])"
+                            objOrderItemViewModel.OrderNo = "\(objItem.1["OrderNo"])"
+                            objOrderItemViewModel.ProductId = "\(objItem.1["ProductId"])"
+                            objOrderItemViewModel.PNum = "\(objItem.1["PNum"])"
+                            objOrderItemViewModel.Price1 = "\(objItem.1["Price1"])"
+                            objOrderItemViewModel.ProductCname = "\(objItem.1["ProductCname"])"
+                            objOrderItemViewModel.OID = "\(objItem.1["OID"])"
+                            objOrderItemViewModel.Price2 = "\(objItem.1["Price2"])"
+                            objOrderItemViewModel.ModifiedOn = "\(objItem.1["ModifiedOn"])"
+                            objOrder.Items.append(objOrderItemViewModel)
+                        }
+                        self.list.append(objOrder)
+                    }
+                    self.dbTable.reloadData()
+                }else
+                {
+                    let text = "\(json["Msg"])"
+                    ViewAlertTextCommon.ShowSimpleText(text, view: self)
+                }
+            case.Failure(let error):
+                let alert = UIAlertView(title: "错误消息", message: "异常:\(error)", delegate: self, cancelButtonTitle: "好")
+                alert.show()
+            }
+            hud.removeFromSuperview()
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
@@ -91,123 +162,14 @@ class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 10
+        return list.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.clearColor()
-        
-        
-        let pImage:UIImageView = UIImageView(image: UIImage(named: "cart_004"))
-        cell.contentView.addSubview(pImage)
-        pImage.snp_makeConstraints { (make) in
-            make.centerY.equalTo(cell.contentView)
-            make.left.equalTo(40)
-            make.width.equalTo(162)
-            make.height.equalTo(97)
-        }
-        
-        let lbDanhao = UILabel()
-        lbDanhao.text = "单号:"
-        lbDanhao.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbDanhao)
-        lbDanhao.snp_makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.left.equalTo(220)
-        }
-        
-        let lbDanhaoValue = UILabel()
-        lbDanhaoValue.text = "20160624001"
-        lbDanhaoValue.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbDanhaoValue)
-        lbDanhaoValue.snp_makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.left.equalTo(265)
-        }
-        
-        let lbZuoWei = UILabel()
-        lbZuoWei.text = "座位:"
-        lbZuoWei.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbZuoWei)
-        lbZuoWei.snp_makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.left.equalTo(400)
-        }
-        
-        let lbZuoWeiValue = UILabel()
-        lbZuoWeiValue.text = "A0001"
-        lbZuoWeiValue.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbZuoWeiValue)
-        lbZuoWeiValue.snp_makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.left.equalTo(445)
-        }
-        
-        let lbShiJian = UILabel()
-        lbShiJian.text = "时间:"
-        lbShiJian.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbShiJian)
-        lbShiJian.snp_makeConstraints { (make) in
-            make.top.equalTo(50)
-            make.left.equalTo(220)
-        }
-        
-        let lbShiJianValue = UILabel()
-        lbShiJianValue.text = "07-24 20:06"
-        lbShiJianValue.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbShiJianValue)
-        lbShiJianValue.snp_makeConstraints { (make) in
-            make.top.equalTo(50)
-            make.left.equalTo(265)
-        }
-        
-        let lbYuanGong = UILabel()
-        lbYuanGong.text = "员工:"
-        lbYuanGong.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbYuanGong)
-        lbYuanGong.snp_makeConstraints { (make) in
-            make.top.equalTo(50)
-            make.left.equalTo(400)
-        }
-        
-        let lbYuanGongValue = UILabel()
-        lbYuanGongValue.text = "克林斯曼"
-        lbYuanGongValue.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbYuanGongValue)
-        lbYuanGongValue.snp_makeConstraints { (make) in
-            make.top.equalTo(50)
-            make.left.equalTo(445)
-        }
-        
-        let lbDesc = UILabel()
-        lbDesc.text = "描述:"
-        lbDesc.textColor = AppProductPriceTextColor
-        cell.contentView.addSubview(lbDesc)
-        lbDesc.snp_makeConstraints { (make) in
-            make.top.equalTo(80)
-            make.left.equalTo(220)
-        }
-        
-        let lineView1 = UIView()
-        lineView1.backgroundColor = AppLineBgColor
-        cell.contentView.addSubview(lineView1)
-        lineView1.snp_makeConstraints { (make) in
-            
-            make.left.equalTo(40)
-            make.height.equalTo(1)
-            make.bottom.equalTo(-1)
-            make.right.equalTo(0)
-        }
-        
+        let cell = OrderViewCell(style: .Default, reuseIdentifier: "myCell")
+        cell.order = list[indexPath.row]
         return cell
     }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
-        
-    }
-    
 
     
     func btnCloseClicked(sender:UIButton)  {
