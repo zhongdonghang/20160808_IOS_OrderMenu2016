@@ -127,18 +127,6 @@ class ViewController: UIViewController,LoginOk,UIAlertViewDelegate {
         }
         //“设置按钮定义结束”
         
-        //“样板店“按钮定义开始
-//        let btnYangban:UIButton = UIButton()
-//        btnYangban.setBackgroundImage(UIImage(named: "yangbandian"), forState: UIControlState.Normal)
-//        btnYangban.addTarget(self, action: #selector(ViewController.btnYangbanClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.view.addSubview(btnYangban)
-//        btnYangban.snp_makeConstraints { (make) in
-//            make.right.equalTo(-1)
-//            make.top.equalTo(180)
-//            make.width.equalTo(109)
-//            make.height.equalTo(36)
-//        }
-        //“样板店“按钮定义结束
         
         // “进入点菜“ 按钮定义开始
         let btnIn:UIButton = UIButton()
