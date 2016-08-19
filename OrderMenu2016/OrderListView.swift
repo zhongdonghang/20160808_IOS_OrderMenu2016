@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource{
+class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource,IOrderAdd,UIAlertViewDelegate{
     
     let dbTable:UITableView = UITableView()
     var list:[OrderViewModel] = []
@@ -168,9 +168,48 @@ class OrderListView: UIView ,UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = OrderViewCell(style: .Default, reuseIdentifier: "myCell")
         cell.order = list[indexPath.row]
+        cell.delgateIOrderAdd = self
         return cell
     }
 
+    var isAddAlertView:UIAlertView!
+    var currentAddOrder:OrderViewModel!
+    
+    func OrderAdd(order:OrderViewModel)
+    {
+        currentAddOrder = order
+         if(CartTools.checkCartIsExist())
+         {
+            isAddAlertView = UIAlertView()
+            isAddAlertView.delegate = self
+            isAddAlertView.tag = 1
+            isAddAlertView.message = "当前尚有进行中的购物车，是否要放弃？"
+            isAddAlertView.title = "提示"
+            isAddAlertView.addButtonWithTitle("是的")
+            isAddAlertView.addButtonWithTitle("不要")
+            isAddAlertView.show()
+         }else
+         {
+            CartTools.removeCart()
+            let cart:CartModel = CartModel(OrderId: currentAddOrder.orderNo, SeatNo: currentAddOrder.Seat, PersonNum: 0, EmpNo: "追加")
+            CartTools.setCart(cart)
+            self.superview?.removeFromSuperview()
+        }
+    }
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
+    {
+        if(alertView.tag==1)
+        {
+            if(buttonIndex == 0)//加菜
+            {
+                CartTools.removeCart()
+                let cart:CartModel = CartModel(OrderId: currentAddOrder.orderNo, SeatNo: currentAddOrder.Seat, PersonNum: 0, EmpNo: "追加")
+                CartTools.setCart(cart)
+                 self.superview?.removeFromSuperview()
+            }
+        }
+    }
     
     func btnCloseClicked(sender:UIButton)  {
         self.superview?.removeFromSuperview()

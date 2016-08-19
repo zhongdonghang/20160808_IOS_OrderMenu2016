@@ -12,9 +12,15 @@ import Alamofire
 import SwiftyJSON
 import SnapKit
 
+protocol IOrderAdd {
+    func OrderAdd(order:OrderViewModel)
+}
+
 //订单列表单元cell
 class OrderViewCell: UITableViewCell {
 
+    var delgateIOrderAdd:IOrderAdd!
+    
     //订单商品图片
     private lazy var pImage: UIImageView = {
        
@@ -104,6 +110,7 @@ class OrderViewCell: UITableViewCell {
     private lazy var btnAdd:UIButton = {
         let btnAdd:UIButton = UIButton()
         btnAdd.setBackgroundImage(UIImage(named: "cart_001"), forState: UIControlState.Normal)
+        btnAdd.addTarget(self, action: #selector(OrderViewCell.btnAddClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
          return btnAdd
     }()
     
@@ -134,6 +141,11 @@ class OrderViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //加菜
+    func btnAddClicked(sender:UIButton) {
+        delgateIOrderAdd.OrderAdd(self.order)
     }
     
     // MARK: 模型setter方法
