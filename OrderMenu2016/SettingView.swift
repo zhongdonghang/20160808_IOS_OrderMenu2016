@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol ILoginOkSetting {
+    func loginOkSetting()
+}
+
 //封面设置视图，登录，注册
-class SettingView: UIView {
+class SettingView: UIView,LoginOk {
+    
+    var delgateILoginOkSetting:ILoginOkSetting!
 
     let loginView:LoginView = LoginView(frame: CGRectMake(0, 0, 0, 0))
     let regView:ReginView = ReginView(frame: CGRectMake(0, 0, 0, 0))
@@ -72,6 +78,11 @@ class SettingView: UIView {
             make.right.equalTo(-20)
             make.bottom.equalTo(-5)
         })
+    }
+    
+    func UserLoginOk()
+    {
+        delgateILoginOkSetting.loginOkSetting()
     }
     
     required init?(coder aDecoder: NSCoder) {

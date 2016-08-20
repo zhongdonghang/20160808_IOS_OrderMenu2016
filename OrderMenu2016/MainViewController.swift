@@ -194,16 +194,19 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     
     func btnTuiChuClicked(sender:UIButton)  {
-        
-        isTuiChuAlertView.delegate = self
-        isTuiChuAlertView.tag = 2
-        isTuiChuAlertView.message = "退出将会清空当前购物车的数据，确定吗"
-        isTuiChuAlertView.title = "提示"
-        isTuiChuAlertView.addButtonWithTitle("是的")
-        isTuiChuAlertView.addButtonWithTitle("不要")
-        isTuiChuAlertView.show()
-        
-       
+        if(CartTools.checkCartIsExist())
+        {
+            isTuiChuAlertView.delegate = self
+            isTuiChuAlertView.tag = 2
+            isTuiChuAlertView.message = "退出将会清空当前购物车的数据，确定吗"
+            isTuiChuAlertView.title = "提示"
+            isTuiChuAlertView.addButtonWithTitle("是的")
+            isTuiChuAlertView.addButtonWithTitle("不要")
+            isTuiChuAlertView.show()
+        }
+        else{
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     

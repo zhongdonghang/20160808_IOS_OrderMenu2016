@@ -26,7 +26,7 @@ let AppServerURL = "http://1.nnbetter.com:8029/api/appapi.asmx/"
 let AppServerURL1 = "http://1.nnbetter.com:8029/api/appapi11.asmx/"
 
 //app启动首页
-class ViewController: UIViewController,LoginOk,UIAlertViewDelegate {
+class ViewController: UIViewController,UIAlertViewDelegate,ILoginOkSetting {
 
     //app启动首页，中心图片的视图，启动该图会由上至下到中心区域的效果
     lazy var centerView: SpringView = {
@@ -224,13 +224,17 @@ class ViewController: UIViewController,LoginOk,UIAlertViewDelegate {
     }
     
 
-    //登录成功执行的方法
-    func UserLoginOk()
-    {
-        print("UserLoginOk")
-       // self.navigationController!.pushViewController(MainViewController(), animated: true)
-
-    }
+//    //登录成功执行的方法
+//    func UserLoginOk()
+//    {
+//        print("UserLoginOk")
+//       // self.navigationController!.pushViewController(MainViewController(), animated: true)
+//
+//    }
+     func loginOkSetting()
+     {
+         print("UserLoginOk")
+     }
     
     
     //设置按钮
@@ -245,7 +249,6 @@ class ViewController: UIViewController,LoginOk,UIAlertViewDelegate {
     //前往设置界面 ，登录或者注册
     func goLoginOrReg() {
         self.view.addSubview(settingViewContainer)
-        
         let objSettingView:SettingView = SettingView(frame: CGRectMake(0, 0, 0, 0))
         settingViewContainer.addSubview(objSettingView)
         objSettingView.snp_makeConstraints { (make) in

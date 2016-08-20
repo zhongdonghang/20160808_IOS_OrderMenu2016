@@ -22,10 +22,8 @@ class LoginUserTools {
         }
         else
         {
-            ret = "20"
+            ret = "20" //演示门店
         }
-        
-        
         return ret
     }
     
