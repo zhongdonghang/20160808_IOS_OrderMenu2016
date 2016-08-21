@@ -140,7 +140,7 @@ class ReginView: UIView {
         }
         else
         {
-            let url = AppServerURL+"AppReg"
+            let url = AppServerURL1+"AppReg"
             let parameters = [
                 "ShortName": "\(self.txtFullName.text!)",
                 "FullName":"\(self.txtFullName.text!)",
@@ -160,7 +160,7 @@ class ReginView: UIView {
             let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
             hud.label.text = "努力加载数据中..."
             
-            Alamofire.request(.GET, url,parameters: parameters).responseJSON { (response) in
+            Alamofire.request(.POST, url,parameters: parameters).responseJSON { (response) in
                 switch response.result {
                 case.Success(let data):
                     let json = JSON(data)
