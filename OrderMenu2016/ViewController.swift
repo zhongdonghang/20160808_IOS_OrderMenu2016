@@ -105,6 +105,7 @@ class ViewController: UIViewController,UIAlertViewDelegate,ILoginOkSetting {
         // “关于”按钮定义开始
         let btnAbout:UIButton = UIButton()
         btnAbout.setBackgroundImage(UIImage(named: "aboutme"), forState: UIControlState.Normal)
+        btnAbout.addTarget(self, action: #selector(ViewController.btnSettingClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btnAbout)
         btnAbout.snp_makeConstraints { (make) in
             make.right.equalTo(-1)
