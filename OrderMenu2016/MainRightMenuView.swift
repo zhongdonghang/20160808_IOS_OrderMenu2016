@@ -75,9 +75,9 @@ class MainRightMenuView: UIView,UICollectionViewDelegate,UICollectionViewDataSou
                     for obj in json["Page"]["Data"]
                     {
                         let vm:ProductSimpleViewModel = ProductSimpleViewModel()
-                        vm.OID = "\(obj.1["OID"])"
+                         vm.OID = "\(obj.1["OID"])"
                          vm.CName = "\(obj.1["CName"])"
-                         vm.Price1 = "\(obj.1["Price1"])"
+                         vm.Price1 = CommonTools.getPriceString("\(obj.1["Price1"])")
                          vm.Price2 = "\(obj.1["Price2"])"
                          vm.PIngredients = "\(obj.1["PIngredients"])"
                          vm.PContent = "\(obj.1["PContent"])"

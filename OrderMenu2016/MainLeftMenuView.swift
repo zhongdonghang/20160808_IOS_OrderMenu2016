@@ -46,12 +46,14 @@ class MainLeftMenuView: UIView,UITableViewDelegate,UITableViewDataSource {
         let parameters = [
             "_orgid": LoginUserTools.getCurrentOrgId()
         ]
+         print(parameters)
         let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
         hud.label.text = "loading..."
         Alamofire.request(.GET, url,parameters: parameters).responseJSON { (response) in
             switch response.result {
             case.Success(let data):
                 let json = JSON(data)
+
                 if(json["ResultCode"] == "200")//请求成功
                 {
                     self.tbData.removeAll()

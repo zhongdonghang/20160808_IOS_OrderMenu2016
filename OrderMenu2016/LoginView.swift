@@ -126,7 +126,7 @@ class LoginView: UIView {
                 "loginName": "\(self.txtLoginName.text!)",
                 "loginPass": "\(self.txtLoginPass.text!)"
             ]
-            let url = AppServerURL1+"AppLogin"
+            let url = AppServerURL1+"AppLoginV2"
             
             let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
             hud.label.text = "登录验证..."//showHUDAddedTo
@@ -138,26 +138,40 @@ class LoginView: UIView {
                    
                     if(json["ResultCode"] == "200")//登录成功
                     {
-                        let loginUser:SimpleLoginUserModel = SimpleLoginUserModel(LOGIN_NAME: "\(json["t"]["LoginName"])")
-                        loginUser.OID = "\(json["t"]["OrgID"])"
-                        loginUser.Code = "\(json["t"]["Code"])"
-                        loginUser.EmpNo = "\(json["t"]["EmpNo"])"
-                        loginUser.RealName = "\(json["t"]["RealName"])"
-                        loginUser.UPass = "\(json["t"]["UPass"])"
-                        loginUser.UCategory = "\(json["t"]["UCategory"])"
-                        loginUser.Gender = "\(json["t"]["Gender"])"
-                        loginUser.TelAndQQAndEmalOrOther = "\(json["t"]["TelAndQQAndEmalOrOther"])"
-                        loginUser.OrgID = "\(json["t"]["OrgID"])"
-                        loginUser.DeletionStateCode = "\(json["t"]["DeletionStateCode"])"
-                        loginUser.Enabled = "\(json["t"]["Enabled"])"
-                        loginUser.SortCode = "\(json["t"]["SortCode"])"
-                        loginUser.Description = "\(json["t"]["Description"])"
-                        loginUser.CreateOn = "\(json["t"]["CreateOn"])"
-                        loginUser.CreateUserId = "\(json["t"]["CreateUserId"])"
-                        loginUser.CreateBy = "\(json["t"]["CreateBy"])"
-                        loginUser.ModifiedOn = "\(json["t"]["ModifiedOn"])"
-                        loginUser.ModifiedUserId = "\(json["t"]["ModifiedUserId"])"
-                        loginUser.ModifiedBy = "\(json["t"]["ModifiedBy"])"
+                        /*
+                         var F_Id = ""
+                         var F_Account = ""
+                         var F_RealName = ""
+                         var F_Gender = ""
+                         var F_Birthday = ""
+                         var F_MobilePhone = ""
+                         var F_OrganizeId = ""
+                         var F_DepartmentId = ""
+                         var F_RoleId = ""
+                         var F_DutyId = ""
+                         var F_IsAdministrator = ""
+                         var F_EnabledMark = ""
+                         var F_Description = ""
+                         var F_CreatorTime = ""
+                         var OrgNo = ""
+                         */
+                        
+                        let loginUser:SimpleLoginUserModel = SimpleLoginUserModel(LOGIN_NAME: "\(json["t"]["CurrentUser"]["F_Account"])")
+                        
+                        loginUser.F_Id = "\(json["t"]["CurrentUser"]["F_Id"])"
+                        loginUser.F_RealName = "\(json["t"]["CurrentUser"]["F_RealName"])"
+                        loginUser.F_Gender = "\(json["t"]["CurrentUser"]["F_Gender"])"
+                        loginUser.F_Birthday = "\(json["t"]["CurrentUser"]["F_Birthday"])"
+                        loginUser.F_MobilePhone = "\(json["t"]["CurrentUser"]["F_MobilePhone"])"
+                        loginUser.F_OrganizeId = "\(json["t"]["CurrentUser"]["F_OrganizeId"])"
+                        loginUser.F_DepartmentId = "\(json["t"]["CurrentUser"]["F_DepartmentId"])"
+                        loginUser.F_RoleId = "\(json["t"]["CurrentUser"]["F_RoleId"])"
+                        loginUser.F_DutyId = "\(json["t"]["CurrentUser"]["F_DutyId"])"
+                        loginUser.F_IsAdministrator = "\(json["t"]["CurrentUser"]["F_IsAdministrator"])"
+                        loginUser.F_EnabledMark = "\(json["t"]["CurrentUser"]["F_EnabledMark"])"
+                        loginUser.F_Description = "\(json["t"]["CurrentUser"]["F_Description"])"
+                        loginUser.F_CreatorTime = "\(json["t"]["CurrentUser"]["F_CreatorTime"])"
+                        loginUser.OrgNo = "\(json["t"]["CurrentUser"]["OrgNo"])"
                         
                         //登录成功用户状态保存
                         let user:NSData = NSKeyedArchiver.archivedDataWithRootObject(loginUser)

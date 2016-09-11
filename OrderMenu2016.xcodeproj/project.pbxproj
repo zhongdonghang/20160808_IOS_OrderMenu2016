@@ -13,6 +13,7 @@
 		CA3186181D3F57FE003842D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3186171D3F57FE003842D7 /* MainViewController.swift */; };
 		CA31861E1D3F5EBA003842D7 /* MainLeftMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA31861D1D3F5EBA003842D7 /* MainLeftMenuView.swift */; };
 		CA3506D71D48BC5500CBCF91 /* ProductCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3506D61D48BC5500CBCF91 /* ProductCellView.swift */; };
+		CA394DF51D85A96800AD6D70 /* CommonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA394DF41D85A96800AD6D70 /* CommonTools.swift */; };
 		CA3D82B41D40603F00F2DD9E /* MainRightMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D82B31D40603F00F2DD9E /* MainRightMenuView.swift */; };
 		CA4CFC3A1D3DCFE6007F321A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4CFC391D3DCFE6007F321A /* AppDelegate.swift */; };
 		CA4CFC3C1D3DCFE6007F321A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4CFC3B1D3DCFE6007F321A /* ViewController.swift */; };
@@ -321,6 +322,7 @@
 		CA3186171D3F57FE003842D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA31861D1D3F5EBA003842D7 /* MainLeftMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLeftMenuView.swift; sourceTree = "<group>"; };
 		CA3506D61D48BC5500CBCF91 /* ProductCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCellView.swift; sourceTree = "<group>"; };
+		CA394DF41D85A96800AD6D70 /* CommonTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTools.swift; sourceTree = "<group>"; };
 		CA3D82B31D40603F00F2DD9E /* MainRightMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRightMenuView.swift; sourceTree = "<group>"; };
 		CA4CFC361D3DCFE6007F321A /* OrderMenu2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderMenu2016.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4CFC391D3DCFE6007F321A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 				CA5F25F31D4763270004C19B /* ViewAlertTextCommon.swift */,
 				CA8AFA341D585E27000E8C60 /* LoginUserTools.swift */,
 				CA7CD19F1D598205003BCAC0 /* CartTools.swift */,
+				CA394DF41D85A96800AD6D70 /* CommonTools.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -923,6 +926,7 @@
 				CA4CFC3C1D3DCFE6007F321A /* ViewController.swift in Sources */,
 				CAB56D141D431AD800DFFCF1 /* OpenOrderView.swift in Sources */,
 				CA8AFA351D585E27000E8C60 /* LoginUserTools.swift in Sources */,
+				CA394DF51D85A96800AD6D70 /* CommonTools.swift in Sources */,
 				CA25FE971D5D83EA00222586 /* PopoverController.swift in Sources */,
 				CA11EA8F1D65503A00F95970 /* CartViewCell.swift in Sources */,
 				CAF867D31D47ABBE00C2C815 /* ProductSimpleViewModel.swift in Sources */,

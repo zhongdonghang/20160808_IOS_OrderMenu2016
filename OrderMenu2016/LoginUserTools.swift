@@ -18,7 +18,7 @@ class LoginUserTools {
         var ret = ""
         if(checkIsLogin())
         {
-            ret = getLoginUser().OrgID
+            ret = getLoginUser().OrgNo
         }
         else
         {

@@ -194,7 +194,10 @@ class CartViewCell: UITableViewCell,UIAlertViewDelegate {
         didSet {
             productImageView.sd_setImageWithURL( NSURL(string: "\(AppServer)uploadFiles/\(objCartItemModel.Item.ImgName)"))
             lbCaiMingValue.text = objCartItemModel.Item.CName
-            lbPriceValue.text = "￥\(objCartItemModel.Item.Price1)"
+            let price = CommonTools.getPriceString("\(objCartItemModel.Item.Price1)")
+            lbPriceValue.text = "￥\(price)"
+            
+            
             txtYiDian.text = "\(objCartItemModel.Count)"
             lbXiaoJiPriceValue.text = "￥\(objCartItemModel.TotalPrice)"
         }

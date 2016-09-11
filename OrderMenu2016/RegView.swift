@@ -140,23 +140,17 @@ class ReginView: UIView {
         }
         else
         {
-            let url = AppServerURL1+"AppReg"
+            let url = AppServerURL1+"AppRegV2"
             let parameters = [
-                "ShortName": "\(self.txtFullName.text!)",
-                "FullName":"\(self.txtFullName.text!)",
+                "orgFullName":"\(self.txtFullName.text!)",
+                "F_Description":"暂无",
                 "MemberNum":"50人以下",
                 "SeatNum":"100",
-                "Desc":"暂无",
-                "OrgCategory":"2",
-                "Tel":"\(self.txtLoginName.text!)",
-                 "LoginName":"\(self.txtLoginName.text!)",
-                 "RealName":"\(self.txtAdminName.text!)",
-                 "UPass":"123456",
-                 "Gender":"男",
-                 "TelAndQQAndEmalOrOther":"暂无",
-                   "Description":"暂无"
+                "loginName":"\(self.txtLoginName.text!)",
+                "loginPass":"123456",
+                "F_RealName":"\(self.txtAdminName.text!)"
             ]
-            print(parameters)
+
             let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
             hud.label.text = "努力加载数据中..."
             

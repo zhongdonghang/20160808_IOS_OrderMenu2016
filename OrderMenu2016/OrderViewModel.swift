@@ -32,7 +32,7 @@ class OrderViewModel:NSObject {
     func getTotal() -> String {
         var total:Double = 0.0
         for it in Items {
-            let price:Double = (it.Price1 as NSString).doubleValue
+            let price:Double = (it.Price1 as NSString).doubleValue * (it.PNum as NSString).doubleValue
             total = total + price
         }
         return "\(total)"

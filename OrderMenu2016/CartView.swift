@@ -261,6 +261,8 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
                     "op":"add"
                 ]
                 
+                print(parameters)
+                
                 let url = AppServerURL+"ProcessingOrders"
                 let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
                 hud.label.text = "订单处理中"
@@ -268,6 +270,7 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
                     switch response.result {
                     case.Success(let data):
                         let json = JSON(data)
+                        print(json)
                         if(json["ResultCode"] == "200")//登录成功
                         {
                             CartTools.removeCart()
