@@ -16,9 +16,10 @@ let CURRENT_ORG_ID = "CURRENT_ORG_ID"
 
 /*
  接口路径1,包含了绝大多数业务接口方法
+ http://diancai.nnbetter.com/api/appapi.asmx
  */
-let AppServer = "http://1.nnbetter.com:8006/"
-let AppServerURL = "http://1.nnbetter.com:8006/api/appapi.asmx/"
+let AppServer = "http://diancai.nnbetter.com/"
+let AppServerURL = "http://diancai.nnbetter.com/api/appapi.asmx/"
 
 /*
    接口路径2,包含登录，注册，获取注册门店的门店类型列表方法
