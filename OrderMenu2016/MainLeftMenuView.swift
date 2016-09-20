@@ -35,6 +35,7 @@ class MainLeftMenuView: UIView,UITableViewDelegate,UITableViewDataSource {
         self.addSubview(dbTable)
         
         loadList()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,6 +66,11 @@ class MainLeftMenuView: UIView,UITableViewDelegate,UITableViewDataSource {
                         self.tbData.append(vm)
                     }
                     self.dbTable.reloadData()
+                    if(self.tbData.count>0)
+                    {
+                        self.dbTable.visibleCells[0].contentView.backgroundColor = AppLeftMenuSelectBgColor
+                        self.delegate?.menuSelected(self.tbData[0].OID)
+                    }
                 }else
                 {
                     let text = "\(json["Msg"])"
@@ -120,8 +126,17 @@ class MainLeftMenuView: UIView,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+        if(indexPath.row == 0)
+        {
+            tableView.visibleCells[indexPath.row].contentView.backgroundColor = AppLeftMenuSelectBgColor
+        }else
+        {
+             tableView.visibleCells[0].contentView.backgroundColor = UIColor.clearColor()
+             tableView.visibleCells[indexPath.row].contentView.backgroundColor = AppLeftMenuSelectBgColor
+            
+            // cell.backgroundColor = UIColor.clearColor()
+        }
         tableView.visibleCells[indexPath.row].contentView.backgroundColor = AppLeftMenuSelectBgColor
-
         self.delegate?.menuSelected(tbData[indexPath.row].OID)
     }
     

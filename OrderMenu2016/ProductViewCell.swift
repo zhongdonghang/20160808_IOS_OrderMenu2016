@@ -90,7 +90,7 @@ class ProductViewCell: UICollectionViewCell {
         }
         
         //商品价格
-        lbPPrice.text = _product.Price1
+        lbPPrice.text = "\(_product.Price1)元"
         lbPPrice.textColor = UIColor.whiteColor()
         productDescView.addSubview(lbPPrice)
         lbPPrice.snp_makeConstraints { (make) in
@@ -115,6 +115,7 @@ class ProductViewCell: UICollectionViewCell {
                 if(pItem.Item.CName == _product.CName)
                 {
                     pCount = "\(pItem.Count)"
+                    pCount = CommonTools.quxiaoshudianhoudeling(pCount)
                     break;
                 }
             }

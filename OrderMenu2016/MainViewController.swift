@@ -91,12 +91,16 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         listViewContainer.animate()
     }
     
+   // override func view
+    
     //窗体加载事件
     override func viewDidLoad() {
         super.viewDidLoad()
         setBaseView()
         setLeftMenuTable()
         setButtons()
+        
+        
     }
     
     //商品详细视图移除

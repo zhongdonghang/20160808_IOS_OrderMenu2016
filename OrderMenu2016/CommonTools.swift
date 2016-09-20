@@ -19,4 +19,29 @@ class CommonTools {
         return "\(price)"
     }
     
+    //购物车商品数量，取出字符串小数点后
+    static func quxiaoshudianhoudeling(testNumber:String) -> String{
+        
+        var outNumber = testNumber
+        var i = 1
+        
+        if testNumber.containsString("."){
+            while i < testNumber.characters.count{
+                if outNumber.hasSuffix("0"){
+                    outNumber.removeAtIndex(outNumber.endIndex.predecessor())
+                    i = i + 1
+                }else{
+                    break
+                }
+            }
+            if outNumber.hasSuffix("."){
+                outNumber.removeAtIndex(outNumber.endIndex.predecessor())
+            }
+            return outNumber
+        }
+        else{
+            return testNumber
+        }
+    }
+    
 }

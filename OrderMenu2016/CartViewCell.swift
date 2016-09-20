@@ -197,8 +197,9 @@ class CartViewCell: UITableViewCell,UIAlertViewDelegate {
             let price = CommonTools.getPriceString("\(objCartItemModel.Item.Price1)")
             lbPriceValue.text = "￥\(price)"
             
-            
-            txtYiDian.text = "\(objCartItemModel.Count)"
+            let yiDianCount = "\(objCartItemModel.Count)"
+            txtYiDian.text = CommonTools.quxiaoshudianhoudeling(yiDianCount)
+         
             lbXiaoJiPriceValue.text = "￥\(objCartItemModel.TotalPrice)"
         }
     }
