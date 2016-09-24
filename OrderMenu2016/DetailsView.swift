@@ -73,7 +73,8 @@ class DetailsView: UIView {
         }
 
         let productImage:UIImageView = UIImageView()
-        productImage.sd_setImageWithURL(NSURL(string: "http://1.nnbetter.com:8029/uploadFiles/\(currentProduct.ImgName)"))
+        //.sd_setImageWithURL( NSURL(string: "\(AppServer)uploadFiles/\(_product.ImgName)"))
+        productImage.sd_setImageWithURL( NSURL(string: "\(AppServer)uploadFiles/\(currentProduct.ImgName)"))
         productImage.layer.borderWidth = 2
         productImage.layer.borderColor = AppLineBgColor.CGColor
         self.addSubview(productImage)
@@ -200,7 +201,7 @@ class DetailsView: UIView {
     
         
         let productBigImage:UIImageView = UIImageView()
-        productBigImage.sd_setImageWithURL(NSURL(string: "http://1.nnbetter.com:8029/uploadFiles/\(currentProduct.ImgName)"))
+        productBigImage.sd_setImageWithURL( NSURL(string: "\(AppServer)uploadFiles/\(currentProduct.ImgName)"))
         productBigImage.layer.borderWidth = 1
         productBigImage.layer.borderColor = AppLineBgColor.CGColor
         self.addSubview(productBigImage)
