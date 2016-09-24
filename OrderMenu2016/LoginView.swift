@@ -138,24 +138,6 @@ class LoginView: UIView {
                    
                     if(json["ResultCode"] == "200")//登录成功
                     {
-                        /*
-                         var F_Id = ""
-                         var F_Account = ""
-                         var F_RealName = ""
-                         var F_Gender = ""
-                         var F_Birthday = ""
-                         var F_MobilePhone = ""
-                         var F_OrganizeId = ""
-                         var F_DepartmentId = ""
-                         var F_RoleId = ""
-                         var F_DutyId = ""
-                         var F_IsAdministrator = ""
-                         var F_EnabledMark = ""
-                         var F_Description = ""
-                         var F_CreatorTime = ""
-                         var OrgNo = ""
-                         */
-                        
                         let loginUser:SimpleLoginUserModel = SimpleLoginUserModel(LOGIN_NAME: "\(json["t"]["CurrentUser"]["F_Account"])")
                         
                         loginUser.F_Id = "\(json["t"]["CurrentUser"]["F_Id"])"

@@ -12,8 +12,14 @@ import Alamofire
 import SwiftyJSON
 import SnapKit
 
+protocol OrderOk {
+    func UserOrderOk()
+}
+
 class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAddOrRemove,UIAlertViewDelegate{
 
+     var orderDelegate:OrderOk?
+    
     let dbTable:UITableView = UITableView()
     var cart:CartModel!
     
@@ -261,8 +267,6 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
                     "op":"add"
                 ]
                 
-                print(parameters)
-                
                 let url = AppServerURL+"ProcessingOrders"
                 let hud = MBProgressHUD.showHUDAddedTo(self, animated: true)
                 hud.label.text = "订单处理中"
@@ -270,12 +274,12 @@ class CartView: UIView ,UITableViewDelegate,UITableViewDataSource,CartProductAdd
                     switch response.result {
                     case.Success(let data):
                         let json = JSON(data)
-                        print(json)
                         if(json["ResultCode"] == "200")//登录成功
                         {
                             CartTools.removeCart()
                             self.superview?.removeFromSuperview()
                             ViewAlertTextCommon.ShowSimpleText("提交成功", view: self)
+                            self.orderDelegate?.UserOrderOk()
                         }else
                         {
                             let text = "\(json["Msg"])"

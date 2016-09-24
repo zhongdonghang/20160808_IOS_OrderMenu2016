@@ -227,7 +227,8 @@ class DetailsView: UIView {
             }
         }
         
-        txtYiDian.text = "\(pCount)"
+        
+        txtYiDian.text = CommonTools.quxiaoshudianhoudeling("\(pCount)")
         txtYiDian.textColor = AppProductPriceTextColor
         txtYiDian.layer.cornerRadius = 5
         txtYiDian.font = UIFont.boldSystemFontOfSize(20)

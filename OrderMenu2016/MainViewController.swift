@@ -18,7 +18,7 @@ let AppProductPriceTextColor = UIColor(red: 102/255, green: 102/255, blue: 102/2
 let AppProductPriceValueColor = UIColor(red: 230/255, green: 51/255, blue: 26/255, alpha: 1)
 
 
-class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNotExist,UIPopoverPresentationControllerDelegate,ISelectFuWuYuan,IFuWuYuanChecked,UIAlertViewDelegate {
+class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNotExist,UIPopoverPresentationControllerDelegate,ISelectFuWuYuan,IFuWuYuanChecked,UIAlertViewDelegate,OrderOk {
 
     
     
@@ -58,6 +58,12 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     let isNewOrderAlertView:UIAlertView = UIAlertView()
     let isTuiChuAlertView:UIAlertView = UIAlertView()
+    
+    //下完订单后退出到首页
+     func UserOrderOk()
+     {
+            self.navigationController?.popViewControllerAnimated(true)
+      }
     
     //选中左侧菜单后执行的方法
     func menuSelected(menuId:String)
@@ -298,6 +304,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         {
             view.addSubview(CartViewContainer)
             let objCartView:CartView = CartView(frame: CGRectMake(400, 0, 624, 768))
+            objCartView.orderDelegate = self
             // objOpenOrderView.delegate = self
             CartViewContainer.addSubview(objCartView)
             
