@@ -23,34 +23,41 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     
     //菜品明细视图
-    lazy var detailsViewContainer: SpringView = {
-        let detailsViewContainer = SpringView()
-        return detailsViewContainer
-    }()
+     var detailsViewContainer: SpringView!
+//        = {
+//        let detailsViewContainer = SpringView()
+//        return detailsViewContainer
+//    }()
     
     //开单视图容器(选座位，服务员)
-    lazy var openOrderViewViewContainer: SpringView = {
-        let openOrderViewViewContainer = SpringView()
-        return openOrderViewViewContainer
-    }()
+    var openOrderViewViewContainer: SpringView!// = SpringView()
+        
+//        = {
+//        let openOrderViewViewContainer = SpringView()
+//        return openOrderViewViewContainer
+//    }()
+    
     
     //主列表视图
-    lazy var listViewContainer: SpringView = {
-        let listViewContainer = SpringView()
-        return listViewContainer
-    }()
+     var listViewContainer: SpringView!
+//        = {
+//        let listViewContainer = SpringView()
+//        return listViewContainer
+//    }()
     
     //购物车视图
-    lazy var CartViewContainer: SpringView = {
-        let CartViewContainer = SpringView()
-        return CartViewContainer
-    }()
+     var CartViewContainer: SpringView!
+//        = {
+//        let CartViewContainer = SpringView()
+//        return CartViewContainer
+//    }()
     
     //订单列表视图
-    lazy var OrderListViewContainer: SpringView = {
-        let OrderListViewContainer = SpringView()
-        return OrderListViewContainer
-    }()
+     var OrderListViewContainer: SpringView!
+//        = {
+//        let OrderListViewContainer = SpringView()
+//        return OrderListViewContainer
+//    }()
     
     var objOpenOrderView:OpenOrderView!
     var objMainRightMenuView:MainRightMenuView!
@@ -68,7 +75,10 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     //选中左侧菜单后执行的方法
     func menuSelected(menuId:String)
     {
-        detailsViewContainer.removeFromSuperview()
+        if(detailsViewContainer != nil)
+        {
+            detailsViewContainer.removeFromSuperview()
+        }
         if(objMainRightMenuView != nil)
         {
             objMainRightMenuView.removeFromSuperview()
@@ -82,6 +92,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         objMainRightMenuView.delegateNewCart = self
         
         //选中左边类别后右边刷新菜品列表
+        listViewContainer = SpringView()
         listViewContainer.addSubview(objMainRightMenuView)
         listViewContainer.animation = "zoomIn"
         listViewContainer.backgroundColor = UIColor.clearColor()
@@ -222,7 +233,8 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     func ProductSelected(product:ProductSimpleViewModel)
     {
-        
+        print("1")
+        detailsViewContainer = SpringView()
         view.addSubview(detailsViewContainer)
         
         objDetailsView = DetailsView(frame: CGRectMake(254, 0, 620, 768), product: product)
@@ -253,13 +265,7 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         detailsViewContainer.animate()
     }
     
-    func btnCloseContainerClicked(sender:UIButton) {
-        detailsViewContainer.removeFromSuperview()
-    }
-    
-    func btnCloseOpenOrderViewContainerClicked(sender:UIButton) {
-        openOrderViewViewContainer.removeFromSuperview()
-    }
+
     
     
     //点击开单按钮
@@ -302,6 +308,8 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     func  btnCartClicked(sender:UIButton) {
         if(CartTools.checkCartIsExist())
         {
+            CartViewContainer = SpringView()
+            
             view.addSubview(CartViewContainer)
             let objCartView:CartView = CartView(frame: CGRectMake(400, 0, 624, 768))
             objCartView.orderDelegate = self
@@ -337,6 +345,8 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     }
     
     func btnOrdersClicked(sender:UIButton){
+
+        OrderListViewContainer = SpringView()
         view.addSubview(OrderListViewContainer)
         
         let objOrderListView:OrderListView = OrderListView(frame: CGRectMake(400, 0, 624, 768))
@@ -367,12 +377,26 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
         OrderListViewContainer.animate()
     }
     
+    //详情页面关闭
+    func btnCloseContainerClicked(sender:UIButton) {
+        detailsViewContainer.removeFromSuperview()
+        detailsViewContainer = nil
+    }
+    
+    //开单视图移除
+    func btnCloseOpenOrderViewContainerClicked(sender:UIButton) {
+        openOrderViewViewContainer.removeFromSuperview()
+        openOrderViewViewContainer = nil
+    }
+    
     func btnCloseCartViewContainerClicked(sender:UIButton) {
          CartViewContainer.removeFromSuperview()
+        CartViewContainer = nil
     }
     
     func btnCloseOrderListViewContainerClicked(sender:UIButton) {
         OrderListViewContainer.removeFromSuperview()
+        OrderListViewContainer = nil
     }
     
     //新开单方法（协议方法）
@@ -384,11 +408,14 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
 
     //显示开单视图（人数/服务员/台位）
     func  showNewCarView() {
+        print("4")
+        openOrderViewViewContainer = SpringView()
         view.addSubview(openOrderViewViewContainer)
         
         objOpenOrderView = OpenOrderView(frame: CGRectMake(151, 0, 873, 768) )
-         objOpenOrderView.delgateSelectFuWuYuan = self
+        objOpenOrderView.delgateSelectFuWuYuan = self
         openOrderViewViewContainer.addSubview(objOpenOrderView)
+        
         let btnCloseOpenOrderViewContainer = UIButton()
         btnCloseOpenOrderViewContainer.backgroundColor = UIColor.clearColor()
         openOrderViewViewContainer.addSubview(btnCloseOpenOrderViewContainer)
