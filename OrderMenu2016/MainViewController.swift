@@ -122,7 +122,11 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     //商品详细视图移除
     func detailsViewHide() {
-        detailsViewContainer.removeFromSuperview()
+        if(detailsViewContainer != nil)
+        {
+            detailsViewContainer.removeFromSuperview()
+            detailsViewContainer = nil
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -233,7 +237,6 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     func ProductSelected(product:ProductSimpleViewModel)
     {
-        print("1")
         detailsViewContainer = SpringView()
         view.addSubview(detailsViewContainer)
         
@@ -379,24 +382,34 @@ class MainViewController: UIViewController,LeftMenuClicked,ProductClicked,CartNo
     
     //详情页面关闭
     func btnCloseContainerClicked(sender:UIButton) {
-        detailsViewContainer.removeFromSuperview()
-        detailsViewContainer = nil
+        if(detailsViewContainer != nil)
+        {
+            detailsViewContainer.removeFromSuperview()
+            detailsViewContainer = nil
+        }
     }
     
     //开单视图移除
     func btnCloseOpenOrderViewContainerClicked(sender:UIButton) {
-        openOrderViewViewContainer.removeFromSuperview()
-        openOrderViewViewContainer = nil
+        if(openOrderViewViewContainer != nil){
+            openOrderViewViewContainer.removeFromSuperview()
+            openOrderViewViewContainer = nil
+        }
     }
     
     func btnCloseCartViewContainerClicked(sender:UIButton) {
-         CartViewContainer.removeFromSuperview()
-        CartViewContainer = nil
+        if(CartViewContainer != nil)
+        {
+            CartViewContainer.removeFromSuperview()
+            CartViewContainer = nil
+        }
     }
     
     func btnCloseOrderListViewContainerClicked(sender:UIButton) {
-        OrderListViewContainer.removeFromSuperview()
-        OrderListViewContainer = nil
+        if(OrderListViewContainer != nil){
+            OrderListViewContainer.removeFromSuperview()
+            OrderListViewContainer = nil
+        }
     }
     
     //新开单方法（协议方法）
