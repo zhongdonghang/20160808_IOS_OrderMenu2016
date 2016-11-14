@@ -19,7 +19,7 @@ class OpeateDescView: UIView {
         lbText.textColor = AppProductPriceTextColor
         lbText.textAlignment = NSTextAlignment.Justified
         lbText.font = UIFont.boldSystemFontOfSize(17)
-        lbText.text = "注册说明：\n    1:使用前先注册账户 \n    2:注册请完整输入门店名称，登录手机号和您的大名\n    3:注册成功后默认密码是123456，请登录管理后台进行修改\n    4:注册成功后，请使用手机号登录管理后台\n（http://diancai.nnbetter.com）进行菜单管理等操作 \n登录说明 \n    1:使用注册的手机号进行登录\n    2:一般使用只用登录一次，除非重新删除安装app，否则不用重新登录\n    3:忘记密码请联系运营方进行密码重置 \n样板店说明\n    样板店管理后台（http://diancai.nnbetter.com/）请使用账户18888888888，密码123456进行登录可以查看样板店的数据样板。\n运维联系方式：\n    负责人:钟东航 \n    手机：18577011009 \n    邮箱：235952254@qq.com  \n    qq号：235952254"
+        lbText.text = "注册说明：\n    1:使用前先注册账户 \n    2:注册请完整输入门店名称，登录手机号和您的大名\n    3:注册成功后默认密码是123456，请登录管理后台进行修改\n    4:注册成功后，请使用手机号登录管理后台\n（http://4.nnbetter.com:8088）进行菜单管理等操作 \n登录说明 \n    1:使用注册的手机号进行登录\n    2:一般使用只用登录一次，除非重新删除安装app，否则不用重新登录\n    3:忘记密码请联系运营方进行密码重置 \n样板店说明\n    样板店管理后台（http://4.nnbetter.com/）请使用账户18888888888，密码123456进行登录可以查看样板店的数据样板。\n运维联系方式：\n    负责人:钟东航 \n    手机：18577011009 \n    邮箱：235952254@qq.com  \n    qq号：235952254"
         self.addSubview(lbText)
         lbText.snp_makeConstraints { (make) in
             make.bottom.equalTo(-10)

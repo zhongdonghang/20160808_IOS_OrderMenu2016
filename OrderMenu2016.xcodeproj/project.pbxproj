@@ -73,6 +73,8 @@
 		CA85AB6E1D5EB303003431CE /* ProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85AB6D1D5EB303003431CE /* ProductViewCell.swift */; };
 		CA8AFA1C1D585A4F000E8C60 /* SimpleLoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AFA1B1D585A4F000E8C60 /* SimpleLoginUserModel.swift */; };
 		CA8AFA351D585E27000E8C60 /* LoginUserTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AFA341D585E27000E8C60 /* LoginUserTools.swift */; };
+		CAB340D51DBDE948006FAF6D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB340D41DBDE948006FAF6D /* SoundManager.swift */; };
+		CAB340EF1DBDF782006FAF6D /* 加菜.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CAB340EE1DBDF782006FAF6D /* 加菜.mp3 */; };
 		CAB56D141D431AD800DFFCF1 /* OpenOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB56D131D431AD800DFFCF1 /* OpenOrderView.swift */; };
 		CAB56D1C1D43A61B00DFFCF1 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB56D1B1D43A61B00DFFCF1 /* CartView.swift */; };
 		CAB56D1E1D43C33A00DFFCF1 /* OrderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB56D1D1D43C33A00DFFCF1 /* OrderListView.swift */; };
@@ -384,6 +386,8 @@
 		CA85AB6D1D5EB303003431CE /* ProductViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewCell.swift; sourceTree = "<group>"; };
 		CA8AFA1B1D585A4F000E8C60 /* SimpleLoginUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleLoginUserModel.swift; sourceTree = "<group>"; };
 		CA8AFA341D585E27000E8C60 /* LoginUserTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserTools.swift; sourceTree = "<group>"; };
+		CAB340D41DBDE948006FAF6D /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		CAB340EE1DBDF782006FAF6D /* 加菜.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "加菜.mp3"; sourceTree = "<group>"; };
 		CAB56D131D431AD800DFFCF1 /* OpenOrderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenOrderView.swift; sourceTree = "<group>"; };
 		CAB56D1B1D43A61B00DFFCF1 /* CartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		CAB56D1D1D43C33A00DFFCF1 /* OrderListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListView.swift; sourceTree = "<group>"; };
@@ -461,6 +465,7 @@
 		CA4CFC381D3DCFE6007F321A /* OrderMenu2016 */ = {
 			isa = PBXGroup;
 			children = (
+				CAB340ED1DBDEA0B006FAF6D /* MP3 */,
 				CAF867BD1D47A17400C2C815 /* ViewModel */,
 				CA5F25E81D474A030004C19B /* Common */,
 				CA31861C1D3F5E96003842D7 /* CustView */,
@@ -549,6 +554,7 @@
 				CA8AFA341D585E27000E8C60 /* LoginUserTools.swift */,
 				CA7CD19F1D598205003BCAC0 /* CartTools.swift */,
 				CA394DF41D85A96800AD6D70 /* CommonTools.swift */,
+				CAB340D41DBDE948006FAF6D /* SoundManager.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -589,6 +595,14 @@
 				CA5F26281D4764330004C19B /* SwiftyJSON tvOS Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CAB340ED1DBDEA0B006FAF6D /* MP3 */ = {
+			isa = PBXGroup;
+			children = (
+				CAB340EE1DBDF782006FAF6D /* 加菜.mp3 */,
+			);
+			name = MP3;
 			sourceTree = "<group>";
 		};
 		CAF867BD1D47A17400C2C815 /* ViewModel */ = {
@@ -888,6 +902,7 @@
 			files = (
 				CA4CFC971D3E012D007F321A /* Info.plist in Resources */,
 				CA4CFC471D3DCFE6007F321A /* LaunchScreen.storyboard in Resources */,
+				CAB340EF1DBDF782006FAF6D /* 加菜.mp3 in Resources */,
 				CA4CFC441D3DCFE6007F321A /* Assets.xcassets in Resources */,
 				CA4CFC3F1D3DCFE6007F321A /* Main.storyboard in Resources */,
 				CA4CFC9A1D3E012D007F321A /* LoadingView.xib in Resources */,
@@ -920,6 +935,7 @@
 				CA7CD1A01D598205003BCAC0 /* CartTools.swift in Sources */,
 				CA4CFC421D3DCFE6007F321A /* OrderMenu2016.xcdatamodeld in Sources */,
 				CA4CFC9C1D3E012D007F321A /* SoundPlayer.swift in Sources */,
+				CAB340D51DBDE948006FAF6D /* SoundManager.swift in Sources */,
 				CA4CFC951D3E012D007F321A /* DesignableView.swift in Sources */,
 				CA4CFC921D3E012D007F321A /* DesignableTabBarController.swift in Sources */,
 				CA4CFC8F1D3E012D007F321A /* DesignableButton.swift in Sources */,

@@ -182,6 +182,7 @@ class ProductViewCell: UICollectionViewCell {
     {
         if(CartTools.checkCartIsExist())
         {
+            SoundManager().playHit()
             let cart:CartModel =  CartTools.getCurrentCart()
             cart.addProduct(AddProduct: _product)
             CartTools.setCart(cart)
